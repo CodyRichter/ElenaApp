@@ -8,7 +8,6 @@ function App() {
 
   const [token, setToken] = React.useState<string | null>(null);
 
-
   return (
     <BrowserRouter>
       {isEmpty(token) ? (

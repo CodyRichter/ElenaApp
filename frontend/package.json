@@ -10,6 +10,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/lodash": "^4.14.186",
+    "bootstrap": "^5.2.2",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -21,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage --coverageDirectory=src/test/coverage --runInBand --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,6 +44,8 @@
     ]
   },
   "devDependencies": {
-    "jest": "23.6.0"
+    "jest": "23.6.0",
+    "jest-environment-jsdom-sixteen": "^2.0.0",
+    "jest-fetch-mock": "^3.0.3"
   }
 }
