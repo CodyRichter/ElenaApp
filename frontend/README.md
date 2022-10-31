@@ -7,4 +7,4 @@ This directory contains the React frontend for the Elena App.
 
 ## Locally Testing
 1. `npm install`
-2. `npm start`
+2. `npm test`
