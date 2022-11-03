@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  elena_backend:
+    container_name: elena-backend
+    build:
+      dockerfile: ./backend/Dockerfile
+      context: ./
+    environment:
+      - GUNICORN_CMD_ARGS=--reload
+    volumes:
+      - "./backend/src:/app/src"
+    ports:
+      - "5001:5001"
+  elena_frontend:
+    container_name: elena-frontend
+    build:
+      dockerfile: ./frontend/Dockerfile
+      context: ./
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules

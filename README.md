@@ -10,4 +10,8 @@ The operating environment of EleNA is a containerized webapp, deployable to any 
 
 ## Developer Setup
 
-Coming Soon.
+Step 0: Install Docker (https://www.docker.com)
+Step 1: Run `docker-compose build`
+Step 2: Run `docker-compose up`
+
+The client will be running now on `localhost:3000` and the backend will be running on `localhost:5001`.
