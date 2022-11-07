@@ -9,18 +9,19 @@ function App() {
   const [token, setToken] = React.useState<string | null>(null);
 
   return (
-    <BrowserRouter>
-      {isEmpty(token) ? (
-        <Authentication setToken={setToken} />
-      )
-        : (
-          <Routes>
-            <Route path="/navigate" element={<Navigation />} />
-            <Route path="/login" element={<Authentication setToken={setToken} />} />
-          </Routes>
-        )}
-    </BrowserRouter>
-  );
+        <BrowserRouter>
+            {/* //   {isEmpty(token) ? ( */}
+            {/* //     <Authentication setToken={setToken} />
+        //   )
+        //     : ( */}
+            <Routes>
+                <Route path="/navigate" element={<Navigation />} />
+                {/* <Route path="/login" element={<Authentication setToken={setToken} />} /> */}
+            </Routes>
+            {/* //       )} */}
+        </BrowserRouter>
+        // );
+    );
 }
 
 export default App;
