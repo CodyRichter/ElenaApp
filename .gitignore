@@ -4,3 +4,4 @@
 *.vsix
 .ionide
 *.code-workspace
+*.DS_Store
