@@ -4,8 +4,8 @@ services:
   elena_backend:
     container_name: elena-backend
     build:
-      dockerfile: ./backend/Dockerfile
-      context: ./
+      dockerfile: Dockerfile
+      context: backend
     environment:
       - GUNICORN_CMD_ARGS=--reload
     volumes:
@@ -15,11 +15,24 @@ services:
   elena_frontend:
     container_name: elena-frontend
     build:
-      dockerfile: ./frontend/Dockerfile
-      context: ./
+      dockerfile: Dockerfile
+      context: frontend
     ports:
       - "3000:3000"
     stdin_open: true
     volumes:
       - ./frontend:/app
       - /app/node_modules
+  elena_dev_db:
+    container_name: elena-dev-db
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_dev_db_container:/data/db
+
+volumes:
+  mongo_dev_db_container:
