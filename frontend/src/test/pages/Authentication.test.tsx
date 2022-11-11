@@ -9,6 +9,11 @@ import { act } from 'react-dom/test-utils'
 
 window.document.getSelection = jest.fn()  // must stub this out for the Material UI TextField to work
 
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom') as any,
+    useNavigate: () => jest.fn(),
+}));
+
 describe('Authentication', () => {
     beforeEach(() => {
         fetchMock.resetMocks()

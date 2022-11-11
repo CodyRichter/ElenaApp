@@ -1,10 +1,10 @@
 import L from "leaflet";
 import { useEffect } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
-import useGeoLocation from "../../../hooks/useGeolocation";
 import RoutingMachine from "./RoutingMachine";
-import UserSVG from "../../../assets/images/user.svg";
+import UserSVG from "assets/images/user.svg";
 import { Popup } from "react-leaflet";
+import useGeoLocation from "hooks/useGeolocation";
 
 interface PositionProps {
     from_lat: number;
@@ -17,15 +17,15 @@ interface MapProps {
     data: PositionProps[];
 }
 
-const userIcon = new L.Icon({
-    iconUrl: UserSVG,
-    iconAnchor: null,
-    popupAnchor: null,
-    shadowUrl: null,
-    shadowSize: null,
-    shadowAnchor: null,
-    className: "user-pointer",
-});
+// const userIcon = new L.Icon({
+//     iconUrl: UserSVG,
+//     iconAnchor: null,
+//     popupAnchor: null,
+//     shadowUrl: null,
+//     shadowSize: null,
+//     shadowAnchor: null,
+//     className: "user-pointer",
+// });
 
 const markerHtmlStyles = `
   background-color: #222222;
@@ -51,7 +51,7 @@ export default function Map({ data }: MapProps) {
 
     useEffect(() => {
         console.log(speed, lat, lng);
-    }, [speed, lat]);
+    }, [speed, lat, lng]);
 
     return (
         <MapContainer

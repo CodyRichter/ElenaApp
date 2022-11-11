@@ -6,12 +6,4 @@ import App from '../App'
 
 test('component loads', async () => {
     render(<App />)
-
-    // ACT
-    // await userEvent.click(screen.getByText('Load Greeting'))
-    // await screen.findByRole('heading')
-
-    // ASSERT
-    // expect(screen.getByRole('heading')).toHaveTextContent('Navigation')
-    // expect(screen.getByRole('button')).toBeDisabled()
 })

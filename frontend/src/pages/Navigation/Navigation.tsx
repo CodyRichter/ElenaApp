@@ -1,6 +1,5 @@
 import React from 'react';
-import { Typography } from "@mui/material";
-import { Box, Hidden } from "@mui/material";
+import { Box } from "@mui/material";
 import Map from "./Map/Map";
 import Sidebar from "./Layout/Sidebar";
 
