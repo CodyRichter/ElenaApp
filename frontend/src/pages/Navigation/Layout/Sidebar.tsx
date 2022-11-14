@@ -1,14 +1,17 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { ButtonGroup, TextField, Typography } from "@mui/material";
+import { KeyboardArrowUp, KeyboardArrowDown, LocationOn } from "@mui/icons-material";
+import { Box, Button, Drawer, ButtonGroup, TextField, Typography } from "@mui/material";
 import Slider from "@mui/material/Slider";
+import { NavigationTypeButton } from "./SidebarComponents/NavigationTypeButton";
+import { NavigationErrorBox } from "./SidebarComponents/NavigationErrorBox";
 
 export default function Sidebar() {
+
+    const [startLocation, setStartLocation] = React.useState<string>('');
+    const [endLocation, setEndLocation] = React.useState<string>('');
+    const [navigationType, setNavigationType] = React.useState<string>('mostDirect');
+    const [navigationErrorHidden, setNavigationErrorHidden] = React.useState<boolean>(true);
+
     const [sliderValue, setSliderValue] = React.useState<
         number | string | Array<number | string>
     >(9);
@@ -16,6 +19,11 @@ export default function Sidebar() {
     const handleSliderChange = (event: Event, newValue: number | number[]) => {
         setSliderValue(newValue);
     };
+
+    async function startNavigation() {
+        console.log('starting navigation');
+        setNavigationErrorHidden(false);
+    }
 
     return (
         <Drawer
@@ -27,87 +35,63 @@ export default function Sidebar() {
             <Box sx={{ width: "400px", padding: "2rem" }} role="presentation">
                 <Typography
                     variant="h4"
-                    sx={{ textAlign: "center", marginBottom: "2rem" }}
+                    align="center"
                 >
                     Route Selection
                 </Typography>
                 <TextField
-                    sx={{ width: "100%", marginBottom: "2rem" }}
-                    id="filled-basic"
+                    fullWidth
+                    inputProps={{ "data-testid": "startLocation" }}
+                    className="mt-3 mb-3"
                     label="Origin"
-                    variant="filled"
+                    variant="outlined"
+                    onChange={(event) => setStartLocation(event.target.value)}
                 />
 
                 <TextField
-                    sx={{ width: "100%", marginBottom: "2rem" }}
-                    id="filled-basic"
+                    fullWidth
+                    inputProps={{ "data-testid": "endLocation" }}
+                    className="mt-3 mb-3"
                     label="Destination"
-                    variant="filled"
+                    variant="outlined"
+                    onChange={(event) => setEndLocation(event.target.value)}
                 />
 
-                <Typography variant="h6" sx={{ marginBottom: ".5rem" }}>
+                <Typography variant="h6" className="mt-3 mb-1">
                     Navigation Mode
                 </Typography>
-
                 <ButtonGroup
-                    sx={{ marginBottom: "2rem" }}
+                    className="mb-3"
                     variant="contained"
                     aria-label="outlined primary button group"
                 >
-                    <Button
-                        sx={{
-                            backgroundColor: "#5723E3",
-                            display: "flex",
-                            flexDirection: "column",
-                            paddingBlock: ".75rem",
-                        }}
-                    >
-                        <KeyboardArrowDownIcon />
-                        <Typography
-                            sx={{ marginTop: ".5rem" }}
-                            align="center"
-                            variant="body2"
-                        >
-                            Minimize Elevation
-                        </Typography>
-                    </Button>
-                    <Button
-                        sx={{
-                            backgroundColor: "#5723E3",
-                            display: "flex",
-                            flexDirection: "column",
-                            paddingBlock: ".75rem",
-                        }}
-                    >
-                        <LocationOnIcon />
-                        <Typography
-                            sx={{ marginTop: ".5rem" }}
-                            align="center"
-                            variant="body2"
-                        >
-                            Most Direct
-                        </Typography>
-                    </Button>
-                    <Button
-                        sx={{
-                            backgroundColor: "#5723E3",
-                            display: "flex",
-                            flexDirection: "column",
-                            paddingBlock: ".75rem",
-                        }}
-                    >
-                        <KeyboardArrowUpIcon />
-                        <Typography
-                            sx={{ marginTop: ".5rem" }}
-                            align="center"
-                            variant="body2"
-                        >
-                            Maximize Elevation
-                        </Typography>
-                    </Button>
+                    <NavigationTypeButton
+                        targetNavigationType="minimizeElevation"
+                        navigationDescription="Minimize Elevation"
+                        buttonIcon={<KeyboardArrowDown />}
+                        navigationType={navigationType}
+                        setNavigationType={setNavigationType}
+                        data-testid="minimizeElevationButton"
+                    />
+                    <NavigationTypeButton
+                        targetNavigationType="mostDirect"
+                        navigationDescription="Most Direct"
+                        buttonIcon={<LocationOn />}
+                        navigationType={navigationType}
+                        setNavigationType={setNavigationType}
+                        data-testid="mostDirectButton"
+                    />
+                    <NavigationTypeButton
+                        targetNavigationType="maximizeElevation"
+                        navigationDescription="Maximize Elevation"
+                        buttonIcon={<KeyboardArrowUp />}
+                        navigationType={navigationType}
+                        setNavigationType={setNavigationType}
+                        data-testid="maximizeElevationButton"
+                    />
                 </ButtonGroup>
 
-                <Typography variant="h6" sx={{ marginBottom: ".5rem" }}>
+                <Typography variant="h6" className="mt-3 mb-1">
                     Maximum Route Distance
                 </Typography>
 
@@ -120,50 +104,56 @@ export default function Sidebar() {
                         gap: "2rem",
                     }}
                 >
-                    <Typography variant="h5">1x</Typography>
+
+                    <Typography variant="h6" data-testid="minDistanceThreshold">
+                        {navigationType === "mostDirect" ? "-" : "1x"}
+                    </Typography>
                     <Slider
                         sx={{
                             width: "100%",
                             flexShrink: 1,
                         }}
-                        aria-label="Always visible"
                         valueLabelDisplay="auto"
                         defaultValue={10}
                         onChange={handleSliderChange}
-                        getAriaValueText={valuetext}
                         step={1}
                         min={1}
                         max={10}
                         marks={[]}
+                        disabled={navigationType === "mostDirect"}
+                        data-testid="distanceSlider"
                     />
-                    <Typography variant="h5">10x</Typography>
-                </Box>
 
-                <Typography align="center" variant="h6">
-                    {sliderValue}x
+                    <Typography variant="h6" data-testid="maxDistanceThreshold">
+                        {navigationType === "mostDirect" ? "-" : "10x"}
+                    </Typography>
+                </Box>
+                <Typography variant="h4" align="center" data-testid="currDistanceThreshold">
+                    {navigationType === "mostDirect" ? "-" : sliderValue + "x"}
                 </Typography>
+
                 <Typography align="center" variant="body2">
-                   We can put anything that we want here. This is a placeholder. This is just a 
-                   placeholder text. This is just a placeholder text.
+                    How many times longer than the shortest route would you are willing to travel.
                 </Typography>
 
                 <Button
-                    sx={{
-                        backgroundColor: "#5723E3",
-                        color: "white",
-                        marginTop: "4rem",
-                        display: "block",
-                        padding: "0.5rem 1.5rem",
-                        marginInline: "auto",
-                    }}
+                    variant="contained"
+                    className="mt-4"
+                    onClick={startNavigation}
+                    fullWidth
+                    data-testid="startNavigationButton"
                 >
                     Navigate
                 </Button>
+
+                <NavigationErrorBox
+                    hidden={navigationErrorHidden}
+                    startLocation={startLocation}
+                    endLocation={endLocation}
+                    navigationType={navigationType}
+                />
+
             </Box>
         </Drawer>
     );
-}
-
-function valuetext(value: number) {
-    return "" + value;
 }

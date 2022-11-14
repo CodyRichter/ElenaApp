@@ -23,15 +23,13 @@ function App() {
     return (
         <BrowserRouter>
             {isEmpty(token) ? (
-                <Routes>
-                    <Route path="/login" element={<Authentication setToken={updateAndSaveToken} />} />
-                </Routes>
+                <Authentication setToken={updateAndSaveToken} />
             ) : (
 
                 <Routes>
                     <Route path="/navigate" element={<Navigation />} />
                     <Route path="/login" element={<Authentication setToken={updateAndSaveToken} />} />
-                    <Route path="/*" element={<Navigation />} />
+                    <Route path="/" element={<Navigation />} />
                 </Routes>
             )
             }

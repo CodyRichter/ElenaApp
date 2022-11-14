@@ -31,7 +31,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "test": "react-scripts test --coverage --coverageDirectory=src/test/coverage --runInBand",
+        "test": "react-scripts test --coverage --coverageDirectory=src/test/coverage --collectCoverageFrom=!src/test/** --runInBand --watchAll",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {

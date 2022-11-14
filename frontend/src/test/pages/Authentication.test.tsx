@@ -1,11 +1,10 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 import React from 'react'
 import Authentication from '../../pages/Authentication/Authentication'
 import fetchMock from 'jest-fetch-mock'
 import { noop } from '../../util/constants'
-import { act } from 'react-dom/test-utils'
 
 window.document.getSelection = jest.fn()  // must stub this out for the Material UI TextField to work
 
