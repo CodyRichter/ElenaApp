@@ -9,9 +9,11 @@ import {
     Grid,
     Typography
 } from "@mui/material";
-import ElenaLogo from '../../assets/images/elena-logo.png';
-import { Network } from '../../util/network';
+import ElenaLogo from 'assets/images/elena-logo.png';
+import { Network } from 'util/network';
 import isEmpty from 'lodash/isEmpty';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Authentication(
     { setToken }: { setToken: (token: string) => void }
@@ -20,6 +22,8 @@ export default function Authentication(
     const [username, setUsername] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
     const [error, setError] = React.useState<string>('');
+
+    const navigate = useNavigate();
 
     const updateUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value);
@@ -40,10 +44,14 @@ export default function Authentication(
             setPassword('');
             setError('');
             setToken(token);
+            navigate('/navigate');
         }).catch((error: any) => {
             setError(error.message);
         });
 
+        // TODO: Remove this once the backend is ready
+        setToken('abc123');
+        navigate('/navigate');
     };
 
 
