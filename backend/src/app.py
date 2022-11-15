@@ -1,11 +1,13 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 
-from src.routers.auth import auth_router
-from src.routers.navigation import navigation_router
+from src.models.Exceptions import CredentialException
+from src.modules.auth.auth_router import auth_router
+from src.modules.navigation import navigation_router
 
 app = FastAPI()
-
 
 origins = ["*"]
 
@@ -43,3 +45,11 @@ def application_startup():
 @app.get("/")
 async def root():
     return {"detail": "EleNa Backend is Running!"}
+
+
+@app.exception_handler(CredentialException)
+async def credential_exception_handler(request: Request, exc: CredentialException):
+    return JSONResponse(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        content={"detail": "Unable to fulfill request. Invalid credentials."},
+    )

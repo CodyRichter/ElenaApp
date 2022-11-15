@@ -8,6 +8,7 @@ services:
       context: backend
     environment:
       - GUNICORN_CMD_ARGS=--reload
+      - MONGO_URI=mongodb://root:password@elena_dev_db:27017
     volumes:
       - "./backend/src:/app/src"
     ports:
