@@ -63,6 +63,7 @@ export default function Map({ data }: MapProps) {
             center={[12.92415, 77.67229]}
             zoom={13}
             scrollWheelZoom={false}
+            alt="map"
         >
             <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

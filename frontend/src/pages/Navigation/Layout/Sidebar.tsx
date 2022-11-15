@@ -31,6 +31,7 @@ export default function Sidebar() {
             variant="permanent"
             anchor="left"
             open={true}
+            data-testid="sidebar"
         >
             <Box sx={{ width: "400px", padding: "2rem" }} role="presentation">
                 <Typography
