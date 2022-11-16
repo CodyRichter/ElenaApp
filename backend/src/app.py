@@ -34,13 +34,6 @@ app.include_router(
 )
 
 
-@app.on_event("startup")
-def application_startup():
-    # db = next(get_db())  # Get db instance from generator
-    # TODO: Make Mongo DB Connection Here
-    pass
-
-
 @app.get("/")
 async def root():
     return {"detail": "EleNa Backend is Running!"}

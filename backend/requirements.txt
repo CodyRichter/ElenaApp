@@ -4,3 +4,8 @@ python-multipart
 python-jose[cryptography]
 passlib[bcrypt]
 pymongo
+pytest
+pytest-timeout
+pytest-cov
+pytest-mock
+httpx

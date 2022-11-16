@@ -1,5 +1,6 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from fastapi.security import OAuth2PasswordRequestForm
+from starlette.responses import JSONResponse
 from src.models.Exceptions import CredentialException
 from src.models.Tokens import Token
 from src.models.Users import UserCreate, UserExport, UserInternal
@@ -23,14 +24,19 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@auth_router.post("/register", response_model=UserExport)
+@auth_router.post("/register", response_model=UserExport, status_code=201)
 async def register_user(user_create: UserCreate):
     new_user = UserInternal(
         **user_create.dict(), hashed_password=get_password_hash(user_create.password)
     )
     existing_user: UserInternal = get_user_db(new_user.email)
     if existing_user:
-        raise CredentialException
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={
+                "detail": "Unable to create account. Account with provided email already exists."
+            },
+        )
 
     create_user_db(new_user)
     return new_user
