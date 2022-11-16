@@ -4,6 +4,7 @@ from fastapi import Depends, FastAPI
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+
 from src.models.Constants import (
     AUTH_ACCESS_TOKEN_EXPIRE_MINUTES,
     AUTH_ALGORITHM,

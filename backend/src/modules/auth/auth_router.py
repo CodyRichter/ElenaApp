@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, status
 from fastapi.security import OAuth2PasswordRequestForm
 from starlette.responses import JSONResponse
+
 from src.models.Exceptions import CredentialException
 from src.models.Tokens import Token
 from src.models.Users import UserCreate, UserExport, UserInternal

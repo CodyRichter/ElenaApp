@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+
 from src.models.Constants import MONGO_URI
 
 client = MongoClient(MONGO_URI, 27017)
