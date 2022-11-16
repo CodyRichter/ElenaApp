@@ -15,12 +15,6 @@ from src.models.Tokens import TokenData
 from src.models.Users import UserInternal
 from src.modules.database.database_client import get_user_db
 
-# to get a string like this run:
-# openssl rand -hex 32
-SECRET_KEY = "adc247dc6240d79df1875097199a3fdb5607213179358cc5f773f9f55da92f14"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
-
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
