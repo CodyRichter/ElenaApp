@@ -4,7 +4,6 @@ from fastapi import Depends, FastAPI
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-
 from src.models.Constants import (
     AUTH_ACCESS_TOKEN_EXPIRE_MINUTES,
     AUTH_ALGORITHM,
@@ -12,7 +11,8 @@ from src.models.Constants import (
 )
 from src.models.Exceptions import CredentialException
 from src.models.Tokens import TokenData
-from src.modules.database.database_client import get_user
+from src.models.Users import UserInternal
+from src.modules.database.database_client import get_user_db
 
 # to get a string like this run:
 # openssl rand -hex 32
@@ -35,8 +35,8 @@ def get_password_hash(password):
     return pwd_context.hash(password)
 
 
-def authenticate_user(username: str, password: str):
-    user = get_user(username)
+def authenticate_user(email: str, password: str):
+    user: UserInternal = get_user_db(email)
     if user and verify_password(password, user.hashed_password):
         return user
     return None
@@ -52,14 +52,14 @@ def create_access_token(data: dict):
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, AUTH_SECRET_KEY, algorithms=[AUTH_ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        email: str = payload.get("sub")
+        if email is None:
             raise CredentialException
-        token_data = TokenData(username=username)
+        token_data = TokenData(email=email)
     except JWTError:
         raise CredentialException
 
-    user = await get_user(token_data.username)
+    user = get_user_db(token_data.email)
     if not user or user.disabled:
         raise CredentialException
     return user
