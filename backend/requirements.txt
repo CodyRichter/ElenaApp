@@ -11,3 +11,5 @@ pytest-mock
 httpx
 osmnx
 networkx
+scikit-learn
+haversine
