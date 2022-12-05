@@ -1,11 +1,10 @@
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.requests import Request
-from starlette.responses import JSONResponse
-
 from src.models.Exceptions import CredentialException
 from src.modules.auth.auth_router import auth_router
-from src.modules.navigation import navigation_router
+from src.modules.navigation.navigation_router import navigation_router
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 
 app = FastAPI()
 

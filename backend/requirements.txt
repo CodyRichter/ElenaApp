@@ -9,3 +9,7 @@ pytest-timeout
 pytest-cov
 pytest-mock
 httpx
+osmnx
+networkx
+scikit-learn
+haversine

@@ -19,4 +19,4 @@ class NavigationResponse(BaseModel):
     origin: Tuple[float, float] # Lat, Lon
     destination: Tuple[float, float] # Lat, Lon
     waypoints: List[Tuple[float, float]] # Ordered list of (Lat, Lon) pairings showing each discrete waypoint
-    distance: int # Total distance
+    distance: float # Total distance
