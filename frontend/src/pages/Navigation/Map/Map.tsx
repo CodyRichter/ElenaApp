@@ -1,6 +1,6 @@
 import L from "leaflet";
-import { useEffect } from "react";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { useEffect, useState } from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
 import RoutingMachine from "./RoutingMachine";
 import UserSVG from "assets/images/user.svg";
 import { Popup } from "react-leaflet";
@@ -46,47 +46,56 @@ const icon = L.divIcon({
     popupAnchor: [0, -36],
     html: `<span style="${markerHtmlStyles}" />`,
 });
-export default function Map({ data }: MapProps) {
-    const { speed, lat, lng } = useGeoLocation();
+// export default function Map({ data }: MapProps) {
+//     const { speed, lat, lng } = useGeoLocation();
 
-    useEffect(() => {
-        console.log(speed, lat, lng);
-    }, [speed, lat, lng]);
+//     useEffect(() => {
+//         console.log(speed, lat, lng);
+//     }, [speed, lat, lng]);
 
-    return (
-        <MapContainer
-            style={{
-                width: "100%",
-                flexShrink: 0,
-                height: "100vh",
-            }}
-            center={[12.92415, 77.67229]}
-            zoom={13}
-            scrollWheelZoom={false}
-            alt="map"
-        >
-            <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
+// { data }: MapProps
+const Map = ({ data }: MapProps) => {
+  //   const { speed, lat, lng } = useGeoLocation();
 
-            {/*======= THE PATH/PATHS ======= */}
-            {data.map((position: PositionProps, index: number) => (
-                <RoutingMachine
-                    key={index}
-                    from_lat={position.from_lat}
-                    from_long={position.from_long}
-                    to_lat={position.to_lat}
-                    to_long={position.to_long}
-                />
-            ))}
+    // return (
+    //     <MapContainer
+    //         style={{
+    //             width: "100%",
+    //             flexShrink: 0,
+    //             height: "100vh",
+    //         }}
+    //         center={[12.92415, 77.67229]}
+    //         zoom={13}
+    //         scrollWheelZoom={false}
+    //         alt="map"
+    //     >
+    //         <TileLayer
+    //             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    //             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    //         />
 
-            {/*======= MARKER FOR USER POSITION ======= */}
-            <Marker position={[12.97768, 77.62664]} icon={icon}>
-                <Popup>
-                    <p>Hi</p>
-                </Popup>
-            </Marker>
-        </MapContainer>
-    );
-}
+    //         {/*======= THE PATH/PATHS ======= */}
+    //         {data.map((position: PositionProps, index: number) => (
+    //             <RoutingMachine
+    //                 key={index}
+    //                 from_lat={position.from_lat}
+    //                 from_long={position.from_long}
+    //                 to_lat={position.to_lat}
+    //                 to_long={position.to_long}
+    //             />
+    //         ))}
+
+    //         {/*======= MARKER FOR USER POSITION ======= */}
+    //         <Marker position={[12.97768, 77.62664]} icon={icon}>
+    //             <Popup>
+    //                 <p>Hi</p>
+    //             </Popup>
+    //         </Marker>
+    //     </MapContainer>
+    // );
+
+
+  return <></>;
+};
+
+export default Map;
