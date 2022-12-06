@@ -10,7 +10,7 @@ services:
       - GUNICORN_CMD_ARGS=--reload
       - MONGO_URI=mongodb://root:password@elena_dev_db:27017
       - AUTH_SECRET=adc247dc6240d79df1875097199a3fdb5607213179358cc5f773f9f55da92f14
-      - ELEVATION_URI=http://localhost@elena_elevation_server:8080
+      - ELEVATION_URI=http://localhost@elena_elevation_server:8080/api/v1/lookup
     volumes:
       - "./backend/src:/app/src"
       - "/maps"
