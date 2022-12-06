@@ -10,6 +10,7 @@ services:
       - GUNICORN_CMD_ARGS=--reload
       - MONGO_URI=mongodb://root:password@elena_dev_db:27017
       - AUTH_SECRET=adc247dc6240d79df1875097199a3fdb5607213179358cc5f773f9f55da92f14
+      - ELEVATION_URI=http://localhost@elena_elevation_server:8080
     volumes:
       - "./backend/src:/app/src"
     ports:
@@ -35,6 +36,18 @@ services:
       - 27017:27017
     volumes:
       - mongo_dev_db_container:/data/db
-
+  elena_elevation_server:
+    container_name: elena_elevation_server
+    build:
+      context: elevation
+      dockerfile: docker/Dockerfile
+    volumes:
+      - "./elevation/data:/code/data"
+      - "./elevation/certs:/code/certs"
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: stdbuf -i0 -o0 -e0 python3 server.py
+    ports:
+        - 8080:8080
 volumes:
   mongo_dev_db_container:
