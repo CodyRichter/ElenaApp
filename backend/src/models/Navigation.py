@@ -10,8 +10,8 @@ class NavigationMode(Enum):
     MAXIMIZE = "maximize_elevation"
 
 class NavigationRequest(BaseModel):
-    origin: Union[Tuple[float, float], str] # Lat, Lon | Placename
-    destination: Union[Tuple[float, float], str] # Lat, Lon | Plcename
+    origin: str  # Placename
+    destination: str  # Placename
     mode: str # TODO: Figure out how to make this NavigationMode type without breaking the /nav/path route
     max_distance: int
 
