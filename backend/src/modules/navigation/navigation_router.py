@@ -13,12 +13,14 @@ navigation_router = APIRouter()
 @navigation_router.post("/path", response_model=NavigationResponse, status_code=200)
 async def get_nav_route(nav_req: NavigationRequest):
     # provide name -> coord resolution
-    nav_req.origin = ox.geocode(nav_req.origin)
-    nav_req.destination = ox.geocode(nav_req.destination)
+    origin = ox.geocode(nav_req.origin)
+    destination = ox.geocode(nav_req.destination)
     route_data, distance = a_star.a_star(
-        nav_req.origin, nav_req.destination, nav_req.mode, nav_req.max_distance
+        origin, destination, nav_req.mode, nav_req.max_distance
     )
     nav_res = NavigationResponse(
+        origin_name=nav_req.origin,
+        destination_name=nav_req.destination,
         origin=nav_req.origin,
         destination=nav_req.destination,
         waypoints=route_data,
