@@ -14,7 +14,8 @@ interface PositionProps {
 }
 
 interface MapProps {
-    data: PositionProps;
+    data: PositionProps | null;
+    isLoaded: boolean;
 }
 
 const userIcon = new L.Icon({
@@ -47,7 +48,7 @@ const icon = L.divIcon({
     html: `<span style="${markerHtmlStyles}" />`,
 });
 
-const Map = ({ data }: MapProps) => {
+const Map = ({ data, isLoaded }: MapProps) => {
     const { speed, lat, lng } = useGeoLocation();
 
     return (
@@ -69,16 +70,18 @@ const Map = ({ data }: MapProps) => {
 
             {/*======= THE PATH/PATHS ======= */}
             {/* {data.map((position: PositionProps, index: number) => ( */}
-            <RoutingMachine
-                from_lat={data.from_lat}
-                from_long={data.from_long}
-                to_lat={data.to_lat}
-                to_long={data.to_long}
-            />
+            {isLoaded && data !== null && (
+                <RoutingMachine
+                    from_lat={data.from_lat}
+                    from_long={data.from_long}
+                    to_lat={data.to_lat}
+                    to_long={data.to_long}
+                />
+            )}
             {/*))}*/}
 
             {/*======= MARKER FOR USER POSITION ======= */}
-            <Marker position={[42.38725109240331, -72.52626422279234]}icon={icon}>
+            <Marker position={[12.97768, 77.62664]} icon={icon}>
                 <Popup>
                     <p>Hi</p>
                 </Popup>

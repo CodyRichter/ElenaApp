@@ -27,23 +27,12 @@ import { NavigationErrorBox } from "./Layout/SidebarComponents/NavigationErrorBo
 
 import Map from "./Map/Map";
 
-// Google map components
-import {
-    useJsApiLoader,
-    GoogleMap,
-    DirectionsRenderer,
-} from "@react-google-maps/api";
-
-// Libraries
-type Libraries = (
-    | "drawing"
-    | "geometry"
-    | "localContext"
-    | "places"
-    | "visualization"
-)[];
-
-const libraries: Libraries = ["places"];
+interface PositionProps {
+    from_lat: number;
+    from_long: number;
+    to_lat: number;
+    to_long: number;
+}
 
 export default function Navigation() {
     // Sidebar state
@@ -62,12 +51,11 @@ export default function Navigation() {
         setSliderValue(newValue);
     };
 
-    const [mapData, setmapData] = useState({
-        from_lat: 42.3882167417221,
-        from_long: -72.53077515232158,
-        to_lat: 42.39721166747161,
-        to_long: -72.52230328667713
-    });
+    //map data for the path
+    const [mapData, setmapData] = useState<PositionProps | null>(null);
+
+    //isLoaded to wait for user input
+    const [isLoaded, setisLoaded] = useState<boolean>(false);
 
     // Direction response
     const [directionsResponse, setDirectionsResponse] =
@@ -85,29 +73,16 @@ export default function Navigation() {
             navigationType,
             "abc123"
         )
-            .then((result) =>
+            .then((result) => {
                 setmapData({
                     from_lat: result.origin[0],
                     from_long: result.origin[1],
                     to_lat: result.destination[0],
                     to_long: result.destination[1],
-                })
-            )
+                });
+                setisLoaded(true);
+            })
             .catch((err) => console.log(err));
-
-        /**
-         *
-         * response:
-         * {
-         *    origin:[from_lat,from_long] ===> ,
-         *    destination:[to_lat,to_long]
-         *
-         *
-         * }
-         *
-         *
-         *
-         */
     }
 
     return (
@@ -269,15 +244,7 @@ export default function Navigation() {
             </Drawer>
 
             {/* Map jsx code */}
-            <Map data={mapData} />
+            <Map data={mapData} isLoaded={isLoaded} />
         </Box>
     );
 }
-
-// // This is just for testing. This can be the JSON data that is being sent from the backend. i.e. the co-ordinates
-// const data = {
-//     from_lat: 13.96691,
-//     from_long: 77.74935,
-//     to_lat: 12.92768,
-//     to_long: 77.62664,
-// };

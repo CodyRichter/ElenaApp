@@ -40,7 +40,7 @@ export class Network {
         navigationType: string,
         token: string
     ): Promise<any> {
-        return fetch(baseUrl + loginRoute, {
+        return fetch(baseUrl + "/nav/path", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
