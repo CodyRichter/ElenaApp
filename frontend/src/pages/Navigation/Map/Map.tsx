@@ -1,8 +1,6 @@
 import L from "leaflet";
-import { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import RoutingMachine from "./RoutingMachine";
-import UserSVG from "assets/images/user.svg";
 import { Popup, Marker } from "react-leaflet";
 import useGeoLocation from "hooks/useGeolocation";
 
@@ -17,16 +15,6 @@ interface MapProps {
     data: PositionProps | null;
     isLoaded: boolean;
 }
-
-const userIcon = new L.Icon({
-    iconUrl: UserSVG,
-    iconAnchor: null,
-    popupAnchor: null,
-    shadowUrl: null,
-    shadowSize: null,
-    shadowAnchor: null,
-    className: "user-pointer",
-});
 
 const markerHtmlStyles = `
   background-color: #222222;
@@ -49,7 +37,7 @@ const icon = L.divIcon({
 });
 
 const Map = ({ data, isLoaded }: MapProps) => {
-    const { speed, lat, lng } = useGeoLocation();
+    const { lat, lng } = useGeoLocation();
 
     return (
         <MapContainer
@@ -69,7 +57,6 @@ const Map = ({ data, isLoaded }: MapProps) => {
             />
 
             {/*======= THE PATH/PATHS ======= */}
-            {/* {data.map((position: PositionProps, index: number) => ( */}
             {isLoaded && data !== null && (
                 <RoutingMachine
                     from_lat={data.from_lat}
@@ -78,7 +65,6 @@ const Map = ({ data, isLoaded }: MapProps) => {
                     to_long={data.to_long}
                 />
             )}
-            {/*))}*/}
 
             {/*======= MARKER FOR USER POSITION ======= */}
             <Marker position={[lat, lng]} icon={icon}>
