@@ -5,61 +5,25 @@ import Slider from "@mui/material/Slider";
 import { NavigationTypeButton } from "./SidebarComponents/NavigationTypeButton";
 import { NavigationErrorBox } from "./SidebarComponents/NavigationErrorBox";
 
-import {
-    Autocomplete,
-    GoogleMap,
-    DirectionsRenderer,
-    Marker,
-  } from "@react-google-maps/api";
+export default function Sidebar() {
 
+  const [startLocation, setStartLocation] = React.useState<string>("");
+  const [endLocation, setEndLocation] = React.useState<string>("");
+  const [navigationType, setNavigationType] =
+    React.useState<string>("mostDirect");
+  const [navigationErrorHidden, setNavigationErrorHidden] =
+    React.useState<boolean>(true);
 
-  export default function Sidebar() {
+  const [sliderValue, setSliderValue] = React.useState<
+    number | string | Array<number | string>
+  >(9);
 
-    const [startLocation, setStartLocation] = React.useState<string>("");
-    const [endLocation, setEndLocation] = React.useState<string>("");
-    const [navigationType, setNavigationType] =
-      React.useState<string>("mostDirect");
-    const [navigationErrorHidden, setNavigationErrorHidden] =
-      React.useState<boolean>(true);
-  
-    const [sliderValue, setSliderValue] = React.useState<
-      number | string | Array<number | string>
-    >(9);
-  
-    // Direction response
-    const [directionsResponse, setDirectionsResponse] =
-      React.useState<google.maps.DirectionsResult>();
-    const [distance, setDistance] = React.useState("");
-    const [duration, setDuration] = React.useState("");
-  
-    const handleSliderChange = (event: Event, newValue: number | number[]) => {
-      setSliderValue(newValue);
-    };
-  
-    async function startNavigation() {
-      setNavigationErrorHidden(false);
-    }
-  
-    // calculating route
-    async function calculateRoute() {
-      if (startLocation === "" || endLocation === "") {
-        return;
-      }
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    setSliderValue(newValue);
+  };
 
-    const directionService = new google.maps.DirectionsService();
-
-    const results = await directionService.route({
-      origin: startLocation,
-      destination: endLocation,
-      travelMode: google.maps.TravelMode.DRIVING,
-    });
-
-    setDirectionsResponse(results);
-  }
-
-  function clearRoute() {
-    setStartLocation("");
-    setEndLocation("");
+  async function startNavigation() {
+    setNavigationErrorHidden(false);
   }
 
   console.log(startLocation);
@@ -78,27 +42,27 @@ import {
           Route Selection
         </Typography>
 
-        <Autocomplete>
-          <TextField
-            fullWidth
-            inputProps={{ "data-testid": "startLocation" }}
-            className="mt-3 mb-3"
-            label="Origin"
-            variant="outlined"
-            onChange={(event) => setStartLocation(event?.target.value)}
-          />
-        </Autocomplete>
 
-        <Autocomplete>
-          <TextField
-            fullWidth
-            inputProps={{ "data-testid": "endLocation" }}
-            className="mt-3 mb-3"
-            label="Destination"
-            variant="outlined"
-            onChange={(event) => setEndLocation(event?.target.value)}
-          />
-        </Autocomplete>
+        <TextField
+          fullWidth
+          inputProps={{ "data-testid": "startLocation" }}
+          className="mt-3 mb-3"
+          label="Origin"
+          variant="outlined"
+          onChange={(event) => setStartLocation(event?.target.value)}
+        />
+
+
+
+        <TextField
+          fullWidth
+          inputProps={{ "data-testid": "endLocation" }}
+          className="mt-3 mb-3"
+          label="Destination"
+          variant="outlined"
+          onChange={(event) => setEndLocation(event?.target.value)}
+        />
+
 
         <Typography variant="h6" className="mt-3 mb-1">
           Navigation Mode
@@ -189,8 +153,8 @@ import {
           onClick={startNavigation}
           fullWidth
           data-testid="startNavigationButton"
-    >
-Navigate
+        >
+          Navigate
         </Button>
 
         <NavigationErrorBox

@@ -57,10 +57,6 @@ export default function Navigation() {
     //isLoaded to wait for user input
     const [isLoaded, setisLoaded] = useState<boolean>(false);
 
-    // Direction response
-    const [directionsResponse, setDirectionsResponse] =
-        React.useState<google.maps.DirectionsResult>();
-
     // calculating route
     async function calculateRoute() {
         if (startLocation === "" || endLocation === "") {
