@@ -8,10 +8,8 @@ navigation_router = APIRouter()
 @navigation_router.post("/path", response_model=NavigationResponse, status_code=200)
 async def get_nav_route(nav_req: NavigationRequest):
     # provide name -> coord resolution
-    if type(nav_req.origin) == str:
-        nav_req.origin = ox.geocode(nav_req.origin)
-    if type(nav_req.destination) == str:
-        nav_req.destination = ox.geocode(nav_req.destination)
+    nav_req.origin = ox.geocode(nav_req.origin)
+    nav_req.destination = ox.geocode(nav_req.destination)
     route_data, distance = a_star.a_star(nav_req.origin, nav_req.destination, nav_req.mode, nav_req.max_distance)
     nav_res = NavigationResponse(
         origin=nav_req.origin,
