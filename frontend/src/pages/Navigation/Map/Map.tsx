@@ -58,7 +58,7 @@ const Map = ({ data, isLoaded }: MapProps) => {
                 flexShrink: 0,
                 height: "100vh",
             }}
-            center={[12.92415, 77.67229]}
+            center={[42.387245185056, -72.52620858219004]}
             zoom={13}
             scrollWheelZoom={false}
             alt="map"
@@ -81,9 +81,9 @@ const Map = ({ data, isLoaded }: MapProps) => {
             {/*))}*/}
 
             {/*======= MARKER FOR USER POSITION ======= */}
-            <Marker position={[12.97768, 77.62664]} icon={icon}>
+            <Marker position={[42.387245185056, -72.52620858219004]} icon={icon}>
                 <Popup>
-                    <p>Hi</p>
+                    <p>User Location</p>
                 </Popup>
             </Marker>
         </MapContainer>
