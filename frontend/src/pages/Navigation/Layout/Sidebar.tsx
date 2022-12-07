@@ -11,6 +11,7 @@ export default function Sidebar() {
     const [endLocation, setEndLocation] = React.useState<string>('');
     const [navigationType, setNavigationType] = React.useState<string>('mostDirect');
     const [navigationErrorHidden, setNavigationErrorHidden] = React.useState<boolean>(true);
+    const [loading, setLoading] = React.useState<boolean>(false);
 
     const [sliderValue, setSliderValue] = React.useState<
         number | string | Array<number | string>
@@ -47,6 +48,7 @@ export default function Sidebar() {
                     label="Origin"
                     variant="outlined"
                     onChange={(event) => setStartLocation(event.target.value)}
+                    onKeyUp={(e) => e.key == 'Enter' && startNavigation()}
                 />
 
                 <TextField
@@ -56,6 +58,7 @@ export default function Sidebar() {
                     label="Destination"
                     variant="outlined"
                     onChange={(event) => setEndLocation(event.target.value)}
+                    onKeyUp={(e) => e.key == 'Enter' && startNavigation()}
                 />
 
                 <Typography variant="h6" className="mt-3 mb-1">
