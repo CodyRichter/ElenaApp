@@ -164,7 +164,7 @@ export default function Sidebar({
                 <Button
                     variant="contained"
                     className="mt-4"
-                    onClick={startNavigation}
+                    onClick={calculateRoute}
                     fullWidth
                     data-testid="startNavigationButton"
                 >
