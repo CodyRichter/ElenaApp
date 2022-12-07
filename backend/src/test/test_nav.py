@@ -6,11 +6,12 @@ from src.models.Navigation import *
 
 client = TestClient(app)
 
+
 @pytest.mark.timeout(10)
-def test_nav_direct_route():
+def test_nav_direct_route_named():
     req = NavigationRequest(
-        origin = (42.37506,-72.52145),#amherst cinema to a little past the clark house
-        destination = (42.37649, -72.51724),
+        origin = "Amherst Cinema",
+        destination = "Beneski Museum of Natural History",
         mode = "direct",
         max_distance = 10
     )
