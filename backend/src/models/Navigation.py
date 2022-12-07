@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Tuple
+from typing import List, Tuple, Union
 
 from pydantic import BaseModel
 
@@ -10,8 +10,8 @@ class NavigationMode(Enum):
     MAXIMIZE = "maximize_elevation"
 
 class NavigationRequest(BaseModel):
-    origin: Tuple[float, float] # Lat, Lon
-    destination: Tuple[float, float] # Lat, Lon
+    origin: str  # Placename
+    destination: str  # Placename
     mode: str # TODO: Figure out how to make this NavigationMode type without breaking the /nav/path route
     max_distance: int
 
