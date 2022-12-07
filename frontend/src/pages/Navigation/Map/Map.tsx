@@ -81,7 +81,7 @@ const Map = ({ data, isLoaded }: MapProps) => {
             {/*))}*/}
 
             {/*======= MARKER FOR USER POSITION ======= */}
-            <Marker position={[42.387245185056, -72.52620858219004]} icon={icon}>
+            <Marker position={[lat, lng]} icon={icon}>
                 <Popup>
                     <p>User Location</p>
                 </Popup>
