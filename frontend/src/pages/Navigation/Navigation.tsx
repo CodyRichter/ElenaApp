@@ -24,30 +24,113 @@ import {
   import { NavigationTypeButton } from "./Layout/SidebarComponents/NavigationTypeButton";
   import { NavigationErrorBox } from "./Layout/SidebarComponents/NavigationErrorBox";
   
-  // Google map components
-  import {
-    useJsApiLoader,
-    GoogleMap,
-    Marker,
-    DirectionsRenderer,
-    Autocomplete,
-    LoadScript,
-  } from "@react-google-maps/api";
-  
-  // Libraries
-  type Libraries = (
-    | "drawing"
-    | "geometry"
-    | "localContext"
-    | "places"
-    | "visualization"
-  )[];
-  
-  const libraries: Libraries = ["places"];
+// Google map components
+import {
+  useJsApiLoader,
+  GoogleMap,
+  DirectionsRenderer,
+  Autocomplete,
+} from "@react-google-maps/api";
+
+// autocomplete
+  import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+  import useOnclickOutside from "react-cool-onclickoutside";
+
+const PlacesAutocomplete = () => {
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      /* Define search scope here */
+    },
+    debounce: 300,
+  });
+  const ref = useOnclickOutside(() => {
+    // When user clicks outside of the component, we can dismiss
+    // the searched suggestions by calling this method
+    clearSuggestions();
+  });
+
+  const handleInput = (e: Event) => {
+    // Update the keyword of the input element
+    setValue(e.target?.value);
+  };
+
+  const handleSelect =
+    ({ description }) =>
+    () => {
+      // When user selects a place, we can replace the keyword without request data from API
+      // by setting the second parameter to "false"
+      setValue(description, false);
+      clearSuggestions();
+
+      // Get latitude and longitude via utility functions
+      getGeocode({ address: description }).then((results) => {
+        const { lat, lng } = getLatLng(results[0]);
+        console.log("📍 Coordinates: ", { lat, lng });
+      });
+    };
+
+  const renderSuggestions = () =>
+    data.map((suggestion) => {
+      const {
+        place_id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
+
+      return (
+        <li key={place_id} onClick={handleSelect(suggestion)}>
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        </li>
+      );
+    });
+
+  return (
+    <Box ref={ref} className="mt-3 mb-3">
+      <Input
+        fullWidth
+        inputProps={{ "data-testid": "startLocation" }}
+        value={value}
+        onChange={handleInput}
+        disabled={!ready}
+        placeholder="Origin"
+      />
+      {/* We can use the "status" to decide whether we should display the dropdown or not */}
+      {status === "OK" && (
+        <ul style={{ borderBottom: "1px solid #ccc" }}>
+          {renderSuggestions()}
+        </ul>
+      )}
+    </Box>
+  );
+};
+
+// Libraries
+type Libraries = (
+  | "drawing"
+  | "geometry"
+  | "localContext"
+  | "places"
+  | "visualization"
+)[];
+
+const libraries: Libraries = ["places"];
 
 export default function Navigation() {
+  // Map loader hook
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyBpRflmSMKFClBJGzOdpVNXaDFUo3dT5UQ",
+    libraries: libraries,
+  });
 
-      // Sidebar state
+  // Sidebar state
   const [startLocation, setStartLocation] = React.useState<string>("");
   const [endLocation, setEndLocation] = React.useState<string>("");
   const [navigationType, setNavigationType] =
@@ -59,13 +142,13 @@ export default function Navigation() {
     number | string | Array<number | string>
   >(9);
 
-  // Direction response
-  const [directionsResponse, setDirectionsResponse] =
-    React.useState<google.maps.DirectionsResult>();
-
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
     setSliderValue(newValue);
   };
+
+  // Direction response
+  const [directionsResponse, setDirectionsResponse] =
+    React.useState<google.maps.DirectionsResult>();
 
   // calculating route
   async function calculateRoute() {
@@ -82,28 +165,23 @@ export default function Navigation() {
     });
 
     setDirectionsResponse(results);
+    console.log(results);
   }
-
-  // Map loader hook
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyBpRflmSMKFClBJGzOdpVNXaDFUo3dT5UQ",
-    libraries,
-  });
 
   if (!isLoaded) {
     return <Skeleton />;
   }
-    return (
-        
-        <Box
-            sx={{
-                display: "flex",
-                height: "100vh",
-                overflow: "hidden",
-                maxHeight: "100vh",
-            }}
-        >
-             {/* Sidebar jsx code */}
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        height: "100vh",
+        overflow: "hidden",
+        maxHeight: "100vh",
+      }}
+    >
+      {/* Sidebar jsx code */}
       <Drawer
         sx={{ width: "400px", maxHeight: "100%", flexShrink: 0 }}
         variant="permanent"
@@ -116,15 +194,18 @@ export default function Navigation() {
             Route Selection
           </Typography>
 
-          <Autocomplete>
+          <PlacesAutocomplete />
+
+          {/* <Autocomplete>
             <Input
               fullWidth
               inputProps={{ "data-testid": "startLocation" }}
               className="mt-3 mb-3"
               placeholder="Origin"
               onChange={(event) => setStartLocation(event.target.value)}
+              id="origin"
             />
-          </Autocomplete>
+          </Autocomplete> */}
 
           <Autocomplete>
             <Input
@@ -133,12 +214,14 @@ export default function Navigation() {
               className="mt-3 mb-3"
               placeholder="Destination"
               onChange={(event) => setEndLocation(event.target.value)}
+              id="destination"
             />
           </Autocomplete>
 
           <Typography variant="h6" className="mt-3 mb-1">
             Navigation Mode
           </Typography>
+
           <ButtonGroup
             className="mb-3"
             variant="contained"
@@ -175,16 +258,18 @@ export default function Navigation() {
           </Typography>
 
           <Box
-                sx={{width: "80%",
-                marginInline: "auto",
-                marginTop: "1rem",
-                display: "flex",
-                gap: "2rem",
-        }}
-        >
-        <Typography variant="h6" data-testid="minDistanceThreshold">
+            sx={{
+              width: "80%",
+              marginInline: "auto",
+              marginTop: "1rem",
+              display: "flex",
+              gap: "2rem",
+            }}
+          >
+            <Typography variant="h6" data-testid="minDistanceThreshold">
               {navigationType === "mostDirect" ? "-" : "1x"}
             </Typography>
+
             <Slider
               sx={{
                 width: "100%",
@@ -204,9 +289,9 @@ export default function Navigation() {
             <Typography variant="h6" data-testid="maxDistanceThreshold">
               {navigationType === "mostDirect" ? "-" : "10x"}
             </Typography>
-        </Box>
+          </Box>
 
-        <Typography
+          <Typography
             variant="h4"
             align="center"
             data-testid="currDistanceThreshold"
@@ -236,9 +321,7 @@ export default function Navigation() {
             navigationType={navigationType}
           />
         </Box>
-
-
-    </Drawer>
+      </Drawer>
 
       {/* Map jsx code */}
       <GoogleMap
