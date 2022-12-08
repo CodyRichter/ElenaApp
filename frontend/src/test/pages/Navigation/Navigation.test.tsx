@@ -13,7 +13,7 @@ describe('Navigation Container', () => {
     })
 
     it('should render components on load', async () => {
-        const { getByTestId } = render(<Navigation />);
+        const { getByTestId } = render(<Navigation token='test' />);
         expect(getByTestId('sidebar')).toBeInTheDocument();
     });
 });

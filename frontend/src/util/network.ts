@@ -1,4 +1,4 @@
-import { baseUrl, loginRoute, navHistoryRoute, signupRoute } from "./constants";
+import { baseUrl, loginRoute, navHistoryRoute, navPathRoute, signupRoute } from "./constants";
 import get from 'lodash/get';
 import has from 'lodash/has';
 
@@ -6,23 +6,22 @@ import has from 'lodash/has';
 export class Network {
 
     public static async login(username: string, password: string): Promise<string> {
+
+        let formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+
         return fetch(baseUrl + loginRoute, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password,
-            }),
+            body: formData,
         }).then(response => response.json()).then(data => {
-            if (has(data, 'token')) {
-                return get(data, 'token');
+            if (has(data, 'access_token')) {
+                return get(data, 'access_token');
             } else {
-                throw new Error('Unexpected response from server. Please try again later.');
+                throw new Error('Invalid Username or Password.');
             }
         }).catch(error => {
-            throw new Error('Unable to connect to server. Please try again later.');
+            throw new Error(error);
         });
     }
 
@@ -65,20 +64,21 @@ export class Network {
         });
     }
 
-    public static async navigate(start: string, end: string, navigationType: string, token: string): Promise<string> {
-        return fetch(baseUrl + loginRoute, {
+    public static async navigate(start: string, end: string, navigationType: string, maxDistance: number, token: string): Promise<any> {
+        return fetch(baseUrl + navPathRoute, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token,
             },
             body: JSON.stringify({
-                startLocation: start,
-                endLocation: end,
-                navigationType: navigationType,
+                origin: start,
+                destination: end,
+                mode: navigationType,
+                max_distance: maxDistance
             }),
         }).then(response => response.json()).then(data => {
-            if (has(data, 'route')) {
+            if (has(data, 'waypoints')) {
                 return data;
             } else {
                 throw new Error('Unable to parse server response. Please try again later.');

@@ -21,8 +21,8 @@ async def get_nav_route(nav_req: NavigationRequest):
     nav_res = NavigationResponse(
         origin_name=nav_req.origin,
         destination_name=nav_req.destination,
-        origin=nav_req.origin,
-        destination=nav_req.destination,
+        origin=origin,
+        destination=destination,
         waypoints=route_data,
         distance=distance,
     )

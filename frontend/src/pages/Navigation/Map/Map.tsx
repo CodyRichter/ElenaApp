@@ -1,9 +1,7 @@
 import L from "leaflet";
-import { useEffect } from "react";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import RoutingMachine from "./RoutingMachine";
-import UserSVG from "assets/images/user.svg";
-import { Popup } from "react-leaflet";
+import { Popup, Marker } from "react-leaflet";
 import useGeoLocation from "hooks/useGeolocation";
 
 interface PositionProps {
@@ -14,18 +12,9 @@ interface PositionProps {
 }
 
 interface MapProps {
-    data: PositionProps[];
+    data: PositionProps | null;
+    isLoaded: boolean;
 }
-
-// const userIcon = new L.Icon({
-//     iconUrl: UserSVG,
-//     iconAnchor: null,
-//     popupAnchor: null,
-//     shadowUrl: null,
-//     shadowSize: null,
-//     shadowAnchor: null,
-//     className: "user-pointer",
-// });
 
 const markerHtmlStyles = `
   background-color: #222222;
@@ -46,12 +35,9 @@ const icon = L.divIcon({
     popupAnchor: [0, -36],
     html: `<span style="${markerHtmlStyles}" />`,
 });
-export default function Map({ data }: MapProps) {
-    const { speed, lat, lng } = useGeoLocation();
 
-    useEffect(() => {
-        console.log(speed, lat, lng);
-    }, [speed, lat, lng]);
+const Map = ({ data, isLoaded }: MapProps) => {
+    const { lat, lng } = useGeoLocation();
 
     return (
         <MapContainer
@@ -60,7 +46,7 @@ export default function Map({ data }: MapProps) {
                 flexShrink: 0,
                 height: "100vh",
             }}
-            center={[12.92415, 77.67229]}
+            center={[42.387245185056, -72.52620858219004]}
             zoom={13}
             scrollWheelZoom={true}
             alt="map"
@@ -71,22 +57,23 @@ export default function Map({ data }: MapProps) {
             />
 
             {/*======= THE PATH/PATHS ======= */}
-            {data.map((position: PositionProps, index: number) => (
+            {isLoaded && data !== null && (
                 <RoutingMachine
-                    key={index}
-                    from_lat={position.from_lat}
-                    from_long={position.from_long}
-                    to_lat={position.to_lat}
-                    to_long={position.to_long}
+                    from_lat={data.from_lat}
+                    from_long={data.from_long}
+                    to_lat={data.to_lat}
+                    to_long={data.to_long}
                 />
-            ))}
+            )}
 
             {/*======= MARKER FOR USER POSITION ======= */}
-            <Marker position={[12.97768, 77.62664]} icon={icon}>
+            <Marker position={[lat, lng]} icon={icon}>
                 <Popup>
-                    <p>Hi</p>
+                    <p>User Location</p>
                 </Popup>
             </Marker>
         </MapContainer>
     );
-}
+};
+
+export default Map;
