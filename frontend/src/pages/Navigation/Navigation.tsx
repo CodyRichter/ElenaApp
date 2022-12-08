@@ -4,12 +4,7 @@ import { Box } from "@mui/material";
 import Map from "./Map/Map";
 import Sidebar from "./Layout/Sidebar";
 
-interface PositionProps {
-    from_lat: number;
-    from_long: number;
-    to_lat: number;
-    to_long: number;
-}
+type PositionProps = [number, number];
 
 export default function Navigation({ token }: { token: string }) {
     // Sidebar state
@@ -26,7 +21,9 @@ export default function Navigation({ token }: { token: string }) {
     };
 
     //map data for the path
-    const [mapData, setmapData] = useState<PositionProps | null>(null);
+    const [origin, setOrigin] = useState<PositionProps | null>(null);
+    const [destination, setDestination] = useState<PositionProps | null>(null);
+    const [wayPoints, setWayPoints] = useState<PositionProps[] | null>(null);
 
     //isLoaded to wait for user input
     const [isLoaded, setisLoaded] = useState<boolean>(false);
@@ -42,16 +39,16 @@ export default function Navigation({ token }: { token: string }) {
             endLocation,
             navigationType,
             sliderValue as number,
-            token,
+            token
         )
             .then((result) => {
                 console.log(result);
-                setmapData({
-                    from_lat: result.origin[0],
-                    from_long: result.origin[1],
-                    to_lat: result.destination[0],
-                    to_long: result.destination[1],
-                });
+                //set origin
+                setOrigin([result.origin[0], result.origin[1]]);
+                //set destination
+                setDestination([result.destination[0], result.destination[1]]);
+                //set waypoints
+                setWayPoints(result.waypoints);
                 setisLoaded(true);
             })
             .catch((err) => console.log(err));
@@ -79,7 +76,12 @@ export default function Navigation({ token }: { token: string }) {
                 handleSliderChange={handleSliderChange}
                 calculateRoute={calculateRoute}
             />
-            <Map data={mapData} isLoaded={isLoaded} />
+            <Map
+                origin={origin}
+                destination={destination}
+                waypoints={wayPoints}
+                isLoaded={isLoaded}
+            />
         </Box>
     );
 }
