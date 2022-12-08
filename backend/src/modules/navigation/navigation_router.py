@@ -1,10 +1,7 @@
 import osmnx as ox
 from fastapi import APIRouter
-from src.models.Navigation import (
-    NavigationRequest,
-    NavigationResponse,
-    NavigationHistoryResponse,
-)
+from src.models.Navigation import (NavigationHistoryResponse,
+                                   NavigationRequest, NavigationResponse)
 from src.modules.pathfinding import a_star
 
 navigation_router = APIRouter()
@@ -15,9 +12,11 @@ async def get_nav_route(nav_req: NavigationRequest):
     # provide name -> coord resolution
     origin = ox.geocode(nav_req.origin)
     destination = ox.geocode(nav_req.destination)
-    route_data, distance = a_star.a_star(
-        origin, destination, nav_req.mode, nav_req.max_distance
-    )
+    strategy = a_star.getStrategy(nav_req.mode, nav_req.max_distance)
+    a_star.a_star_router.routing_strategy = strategy
+    
+
+    route_data, distance = a_star.a_star_router.get_route(origin, destination)
     nav_res = NavigationResponse(
         origin_name=nav_req.origin,
         destination_name=nav_req.destination,
