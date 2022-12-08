@@ -7,7 +7,7 @@ from src.models.Navigation import *
 client = TestClient(app)
 
 
-@pytest.mark.timeout(10)
+@pytest.mark.timeout(20)
 def test_nav_direct_route_named():
     req = NavigationRequest(
         origin = "Fine Arts Center, Amherst",
@@ -25,8 +25,8 @@ def test_nav_direct_route_named():
     for pt in json["waypoints"]:
         acc += haversine(pt, prev)
         prev = pt
-        print(pt)
     assert acc >= haversine(json["waypoints"][0], json["waypoints"][-1])#lower bounded by straight line
+    assert abs(acc - json["distance"]) < 0.1 #distance returned is close to manually calc
 
 @pytest.mark.timeout(20)
 def test_nav_min_route_named():
@@ -47,8 +47,8 @@ def test_nav_min_route_named():
         acc += haversine(pt, prev)
         prev = pt
     assert acc >= haversine(json["waypoints"][0], json["waypoints"][-1])#lower bounded by straight line)
-    #print(acc)
-    assert acc > 0.997 #hardcoded FAC->Pokeberry, min elev route should do some roundabout way of getting there
+    assert acc > 0.961 #hardcoded FAC->Pokeberry, min elev route should do some roundabout way of getting there
+    assert abs(acc - json["distance"]) < 0.1 #distance returned is close to manually calc
 
 @pytest.mark.timeout(20)
 def test_nav_max_route_named():
@@ -69,6 +69,5 @@ def test_nav_max_route_named():
         acc += haversine(pt, prev)
         prev = pt
     assert acc >= haversine(json["waypoints"][0], json["waypoints"][-1])#lower bounded by straight line)
-    #print(acc)
-    assert acc > 0.997 #hardcoded FAC->Pokeberry, max elev route should do some roundabout way of getting there
-    assert abs(acc - 1.59) > 0.1 #hardcoded res of min route. min route could be wrong too, but max and min routes should not be the same
+    assert acc > 0.961 #hardcoded FAC->Pokeberry, max elev route should do some roundabout way of getting there
+    assert abs(acc - json["distance"]) < 0.1 #distance returned is close to manually calc
