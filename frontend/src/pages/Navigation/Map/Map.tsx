@@ -62,7 +62,7 @@ export default function Map({ data }: MapProps) {
             }}
             center={[12.92415, 77.67229]}
             zoom={13}
-            scrollWheelZoom={false}
+            scrollWheelZoom={true}
             alt="map"
         >
             <TileLayer

@@ -13,6 +13,7 @@ import ElenaLogo from 'assets/images/elena-logo.png';
 import { Network } from 'util/network';
 import isEmpty from 'lodash/isEmpty';
 import { useNavigate } from 'react-router-dom';
+import { SignupDialog } from 'pages/Authentication/SignupDialog';
 
 
 export default function Authentication(
@@ -22,6 +23,8 @@ export default function Authentication(
     const [username, setUsername] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
     const [error, setError] = React.useState<string>('');
+    const [signupOpen, setSignupOpen] = React.useState<boolean>(false);
+
 
     const navigate = useNavigate();
 
@@ -86,6 +89,7 @@ export default function Authentication(
                                 fullWidth
                                 className='mb-4'
                                 onChange={updateUsername}
+                                onKeyUp={(e) => e.key == 'Enter' && triggerLogin()}
                             />
                             <TextField
                                 inputProps={{ "data-testid": "loginPassword" }}
@@ -95,9 +99,14 @@ export default function Authentication(
                                 fullWidth
                                 className='mb-4'
                                 onChange={updatePassword}
+                                onKeyUp={(e) => e.key == 'Enter' && triggerLogin()}
                             />
                             <Button color='primary' variant='contained' disableElevation fullWidth onClick={triggerLogin} data-testid="loginButton">
                                 Sign in
+                            </Button>
+
+                            <Button color='primary' variant='contained' disableElevation fullWidth onClick={() => setSignupOpen(true)} data-testid="signupButton" className="mt-3">
+                                Create Account
                             </Button>
 
                             {!isEmpty(error) && (
@@ -109,6 +118,8 @@ export default function Authentication(
                     </Card>
                 </Grid>
             </Grid>
+
+            <SignupDialog open={signupOpen} setOpen={setSignupOpen} />
         </>
     )
 }
