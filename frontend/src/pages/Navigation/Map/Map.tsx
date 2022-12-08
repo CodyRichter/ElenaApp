@@ -1,23 +1,26 @@
 import L from "leaflet";
-import { MapContainer, TileLayer } from "react-leaflet";
-import RoutingMachine from "./RoutingMachine";
-import { Popup, Marker } from "react-leaflet";
+import {
+    MapContainer,
+    TileLayer,
+    FeatureGroup,
+    Marker,
+    Polyline,
+    Popup,
+} from "react-leaflet";
 import useGeoLocation from "hooks/useGeolocation";
+import CreatePaths from "./CreatePaths";
 
-interface PositionProps {
-    from_lat: number;
-    from_long: number;
-    to_lat: number;
-    to_long: number;
-}
+type PositionProps = [number, number];
 
 interface MapProps {
-    data: PositionProps | null;
+    origin: PositionProps | null;
+    destination: PositionProps | null;
+    waypoints: PositionProps[] | null;
     isLoaded: boolean;
 }
 
 const markerHtmlStyles = `
-  background-color: #222222;
+  background-color: #0978f6;
   width: 2rem;
   height: 2rem;
   display: block;
@@ -36,7 +39,7 @@ const icon = L.divIcon({
     html: `<span style="${markerHtmlStyles}" />`,
 });
 
-const Map = ({ data, isLoaded }: MapProps) => {
+const Map = ({ origin, destination, waypoints, isLoaded }: MapProps) => {
     const { lat, lng } = useGeoLocation();
 
     return (
@@ -56,14 +59,29 @@ const Map = ({ data, isLoaded }: MapProps) => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
+            {/*======= MARKER FOR ORIGIN ======= */}
+            {isLoaded && origin !== null && (
+                <Marker position={[origin[0], origin[1]]} icon={icon}>
+                    <Popup>
+                        <p>User Location</p>
+                    </Popup>
+                </Marker>
+            )}
+
             {/*======= THE PATH/PATHS ======= */}
-            {isLoaded && data !== null && (
-                <RoutingMachine
-                    from_lat={data.from_lat}
-                    from_long={data.from_long}
-                    to_lat={data.to_lat}
-                    to_long={data.to_long}
-                />
+            {isLoaded && waypoints !== null && (
+                <FeatureGroup>
+                    <Polyline positions={waypoints} color="red" />
+                </FeatureGroup>
+            )}
+
+            {/*======= MARKER FOR DESTINATION ======= */}
+            {isLoaded && destination !== null && (
+                <Marker position={[destination[0], destination[1]]} icon={icon}>
+                    <Popup>
+                        <p>User Location</p>
+                    </Popup>
+                </Marker>
             )}
 
             {/*======= MARKER FOR USER POSITION ======= */}
