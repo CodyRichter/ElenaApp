@@ -13,7 +13,7 @@ describe('testing network', () => {
         it('should successfully login', async () => {
             enableFetchMocks();
             const testTokenValue = 'testTokenValue';
-            fetchMock.mockResponseOnce(JSON.stringify({ token: testTokenValue }));
+            fetchMock.mockResponseOnce(JSON.stringify({ access_token: testTokenValue }));
 
             const token = await Network.login('username', 'password');
             expect(token).toBe(testTokenValue);
@@ -92,9 +92,9 @@ describe('testing network', () => {
             const testEnd = 'testEnd';
             const testNavigationType = 'testNavigationType';
             const testToken = 'testToken';
-            const testResponse = { route: 'testRoute' };
+            const testResponse = { waypoints: 'testRoute' };
             fetchMock.mockResponseOnce(JSON.stringify(testResponse));
-            const token = await Network.navigate(testStart, testEnd, testNavigationType, testToken);
+            const token = await Network.navigate(testStart, testEnd, testNavigationType, 100, testToken);
 
             expect(token).toEqual(testResponse);
         });
@@ -107,13 +107,13 @@ describe('testing network', () => {
             const testToken = 'testToken';
             const testResponse = { noRoute: 'badRouteData' };
             fetchMock.mockResponseOnce(JSON.stringify(testResponse));
-            expect(Network.navigate(testStart, testEnd, testNavigationType, testToken)).rejects.toThrow();
+            expect(Network.navigate(testStart, testEnd, testNavigationType, 100, testToken)).rejects.toThrow();
         });
 
         it('should throw error when navigation server is down', async () => {
             enableFetchMocks();
             fetchMock.mockRejectOnce(new Error('Server down...'));
-            expect(Network.navigate('start', 'end', 'type', 'token')).rejects.toThrow();
+            expect(Network.navigate('start', 'end', 'type', 100, 'token')).rejects.toThrow();
         });
     });
 });

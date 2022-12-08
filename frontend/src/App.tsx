@@ -7,42 +7,42 @@ import { AccountAccessIcon } from 'shared/AccountAccessIcon';
 
 function App() {
 
-    const [token, setToken] = React.useState<string | null>(null);
+  const [token, setToken] = React.useState<string | null>(null);
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (!isEmpty(token)) {
-            setToken(token);
-        }
-    }, []);
-
-    async function updateAndSaveToken(token: string) {
-        if (isEmpty(token)) {
-            setToken(null);
-            localStorage.removeItem('token');
-        } else {
-            localStorage.setItem('token', token);
-            setToken(token);
-        }
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!isEmpty(token)) {
+      setToken(token);
     }
+  }, []);
 
-    return (
-        <BrowserRouter>
-            {isEmpty(token) ? (
-                <Authentication setToken={updateAndSaveToken} />
-            ) : (
-                <>
-                    <Routes>
-                        <Route path="/navigate" element={<Navigation />} />
-                        <Route path="/login" element={<Authentication setToken={updateAndSaveToken} />} />
-                        <Route path="/" element={<Navigation />} />
-                    </Routes>
-                    <AccountAccessIcon token={token} setToken={updateAndSaveToken} />
-                </>
-            )
-            }
-        </BrowserRouter >
-    );
+  async function updateAndSaveToken(token: string) {
+    if (isEmpty(token)) {
+      setToken(null);
+      localStorage.removeItem('token');
+    } else {
+      localStorage.setItem('token', token);
+      setToken(token);
+    }
+  }
+
+  return (
+    <BrowserRouter>
+      {isEmpty(token) ? (
+        <Authentication setToken={updateAndSaveToken} />
+      ) : (
+        <>
+          <Routes>
+            <Route path="/navigate" element={<Navigation token={token as string} />} />
+            <Route path="/login" element={<Authentication setToken={updateAndSaveToken} />} />
+            <Route path="/" element={<Navigation token={token as string} />} />
+          </Routes>
+          <AccountAccessIcon token={token} setToken={updateAndSaveToken} />
+        </>
+      )
+      }
+    </BrowserRouter >
+  );
 }
 
 export default App;

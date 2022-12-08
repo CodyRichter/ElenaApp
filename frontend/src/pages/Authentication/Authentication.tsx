@@ -51,10 +51,6 @@ export default function Authentication(
         }).catch((error: any) => {
             setError(error.message);
         });
-
-        // TODO: Remove this once the backend is ready
-        setToken('abc123');
-        navigate('/navigate');
     };
 
 
@@ -89,7 +85,7 @@ export default function Authentication(
                                 fullWidth
                                 className='mb-4'
                                 onChange={updateUsername}
-                                onKeyUp={(e) => e.key == 'Enter' && triggerLogin()}
+                                onKeyUp={(e) => e.key === 'Enter' && triggerLogin()}
                             />
                             <TextField
                                 inputProps={{ "data-testid": "loginPassword" }}
@@ -99,7 +95,7 @@ export default function Authentication(
                                 fullWidth
                                 className='mb-4'
                                 onChange={updatePassword}
-                                onKeyUp={(e) => e.key == 'Enter' && triggerLogin()}
+                                onKeyUp={(e) => e.key === 'Enter' && triggerLogin()}
                             />
                             <Button color='primary' variant='contained' disableElevation fullWidth onClick={triggerLogin} data-testid="loginButton">
                                 Sign in

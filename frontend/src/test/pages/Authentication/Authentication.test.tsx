@@ -54,7 +54,7 @@ describe('Authentication', () => {
     });
 
     it('should set token on login with valid credentials', async () => {
-        fetchMock.mockResponses(JSON.stringify({ token: 'token' }));
+        fetchMock.mockResponses(JSON.stringify({ access_token: 'token' }));
         const setTokenMock = jest.fn();
         const { findByTestId, getByTestId } = render(<Authentication setToken={setTokenMock} />);
 

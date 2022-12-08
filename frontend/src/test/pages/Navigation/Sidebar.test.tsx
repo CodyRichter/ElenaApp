@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import fetchMock from 'jest-fetch-mock'
 import { noop } from 'util/constants'
 import Sidebar from 'pages/Navigation/Layout/Sidebar'
@@ -15,7 +15,13 @@ describe('Navigation Sidebar', () => {
     })
 
     it('should render components on load', async () => {
-        const { getByText, getByTestId } = render(<Sidebar />);
+        const { getByText, getByTestId } = render(<Sidebar
+            startLocation={''} setStartLocation={noop}
+            endLocation={''} setEndLocation={noop}
+            navigationType={''} setNavigationType={noop}
+            navigationErrorHidden={true} setNavigationErrorHidden={noop}
+            sliderValue={''} handleSliderChange={noop}
+            calculateRoute={jest.fn().mockImplementationOnce(() => Promise.resolve())} />);
         expect(getByText('Navigate')).toBeInTheDocument();
         expect(getByTestId('startLocation')).toBeInTheDocument();
         expect(getByTestId('endLocation')).toBeInTheDocument();
@@ -24,35 +30,39 @@ describe('Navigation Sidebar', () => {
     });
 
     it('should not display error on initial page load', async () => {
-        const { queryByTestId } = render(<Sidebar />);
+        const { queryByTestId } = render(<Sidebar
+            startLocation={''} setStartLocation={noop}
+            endLocation={''} setEndLocation={noop}
+            navigationType={''} setNavigationType={noop}
+            navigationErrorHidden={true} setNavigationErrorHidden={noop}
+            sliderValue={''} handleSliderChange={noop}
+            calculateRoute={jest.fn().mockImplementationOnce(() => Promise.resolve())} />);
         expect(queryByTestId('navigationError')).not.toBeInTheDocument();
     });
 
-    it('should display error if locations are missing', async () => {
-        const { getByTestId } = render(<Sidebar />);
-        userEvent.click(getByTestId('startNavigationButton'));
-        expect(getByTestId('navigationError')).toBeInTheDocument();
-    });
-
     it('should not display error if all fields are present', async () => {
-        const { queryByTestId, getByTestId } = render(<Sidebar />);
+        const { queryByTestId, getByTestId } = render(<Sidebar
+            startLocation={''} setStartLocation={noop}
+            endLocation={''} setEndLocation={noop}
+            navigationType={''} setNavigationType={noop}
+            navigationErrorHidden={true} setNavigationErrorHidden={noop}
+            sliderValue={''} handleSliderChange={noop}
+            calculateRoute={jest.fn().mockImplementationOnce(() => Promise.resolve())} />);
         userEvent.type(getByTestId('startLocation'), 'start');
         userEvent.type(getByTestId('endLocation'), 'end');
         userEvent.click(getByTestId('startNavigationButton'));
         expect(queryByTestId('navigationError')).not.toBeInTheDocument();
     });
 
-    it('should disable distance slider metrics if mode is mostDirect', async () => {
-        const { getByTestId } = render(<Sidebar />);
-        userEvent.click(getByTestId('mostDirectButton'));
-        expect(getByTestId('minDistanceThreshold')).toHaveTextContent('-');
-        expect(getByTestId('currDistanceThreshold')).toHaveTextContent('-');
-        expect(getByTestId('maxDistanceThreshold')).toHaveTextContent('-');
-    });
-
     it('should enable distance slider metrics if mode is not mostDirect', async () => {
-        const { getByTestId } = render(<Sidebar />);
-        userEvent.click(getByTestId('mostDirectButton'));
+        const { getByTestId } = render(<Sidebar
+            startLocation={''} setStartLocation={noop}
+            endLocation={''} setEndLocation={noop}
+            navigationType={''} setNavigationType={noop}
+            navigationErrorHidden={true} setNavigationErrorHidden={noop}
+            sliderValue={''} handleSliderChange={noop}
+            calculateRoute={jest.fn().mockImplementationOnce(() => Promise.resolve())} />);
+        userEvent.click(getByTestId('directButton'));
         userEvent.click(getByTestId('minimizeElevationButton'));
         expect(getByTestId('minDistanceThreshold')).toHaveTextContent('1x');
         expect(getByTestId('currDistanceThreshold')).not.toHaveTextContent('-');
