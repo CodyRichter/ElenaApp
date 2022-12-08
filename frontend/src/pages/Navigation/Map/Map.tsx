@@ -20,7 +20,7 @@ interface MapProps {
 }
 
 const markerHtmlStyles = `
-  background-color: #222222;
+  background-color: #0978f6;
   width: 2rem;
   height: 2rem;
   display: block;
