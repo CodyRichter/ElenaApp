@@ -20,7 +20,7 @@ interface MapProps {
 }
 
 const markerHtmlStyles = `
-  background-color: #0978f6;
+  background-color: #f24747;
   width: 2rem;
   height: 2rem;
   display: block;
@@ -71,7 +71,7 @@ const Map = ({ origin, destination, waypoints, isLoaded }: MapProps) => {
             {/*======= THE PATH/PATHS ======= */}
             {isLoaded && waypoints !== null && (
                 <FeatureGroup>
-                    <Polyline positions={waypoints} color="red" />
+                    <Polyline positions={waypoints} color= "blue" />
                 </FeatureGroup>
             )}
 
