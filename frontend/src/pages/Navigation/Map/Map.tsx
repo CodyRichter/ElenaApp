@@ -1,6 +1,12 @@
 import L from "leaflet";
-import { MapContainer, TileLayer } from "react-leaflet";
-import { Popup, Marker } from "react-leaflet";
+import {
+    MapContainer,
+    TileLayer,
+    FeatureGroup,
+    Marker,
+    Polyline,
+    Popup,
+} from "react-leaflet";
 import useGeoLocation from "hooks/useGeolocation";
 import CreatePaths from "./CreatePaths";
 
@@ -64,7 +70,9 @@ const Map = ({ origin, destination, waypoints, isLoaded }: MapProps) => {
 
             {/*======= THE PATH/PATHS ======= */}
             {isLoaded && waypoints !== null && (
-                <CreatePaths waypoints={waypoints} />
+                <FeatureGroup>
+                    <Polyline positions={waypoints} color="red" />
+                </FeatureGroup>
             )}
 
             {/*======= MARKER FOR DESTINATION ======= */}
