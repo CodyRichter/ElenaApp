@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module auth_utils</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>auth_utils</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/Cody/Documents/Projects/ElenaApp/backend/src/modules/auth/auth_utils.py">/Users/Cody/Documents/Projects/ElenaApp/backend/src/modules/auth/auth_utils.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="jose.jwt.html">jose.jwt</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-authenticate_user"><strong>authenticate_user</strong></a>(email: str, password: str)</dt><dd><tt>Authenticate&nbsp;user&nbsp;with&nbsp;email&nbsp;and&nbsp;password.</tt></dd></dl>
+ <dl><dt><a name="-create_access_token"><strong>create_access_token</strong></a>(data: dict)</dt><dd><tt>Create&nbsp;access&nbsp;token&nbsp;with&nbsp;provided&nbsp;data.</tt></dd></dl>
+ <dl><dt>async <a name="-get_current_user"><strong>get_current_user</strong></a>(token: str = Depends(OAuth2PasswordBearer))</dt><dd><tt>Parses&nbsp;token&nbsp;and&nbsp;returns&nbsp;current&nbsp;user.</tt></dd></dl>
+ <dl><dt><a name="-get_password_hash"><strong>get_password_hash</strong></a>(password)</dt><dd><tt>Obtainshas&nbsp;of&nbsp;provided&nbsp;password.</tt></dd></dl>
+ <dl><dt><a name="-verify_password"><strong>verify_password</strong></a>(plain_password, hashed_password)</dt><dd><tt>Verify&nbsp;password&nbsp;with&nbsp;hashed&nbsp;password.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>AUTH_ACCESS_TOKEN_EXPIRE_MINUTES</strong> = 30<br>
+<strong>AUTH_ALGORITHM</strong> = 'HS256'<br>
+<strong>AUTH_SECRET_KEY</strong> = None<br>
+<strong>app</strong> = &lt;fastapi.applications.FastAPI object&gt;<br>
+<strong>oauth2_scheme</strong> = &lt;fastapi.security.oauth2.OAuth2PasswordBearer object&gt;<br>
+<strong>pwd_context</strong> = &lt;CryptContext&gt;</td></tr></table>
+</body></html>
