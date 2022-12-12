@@ -23,7 +23,7 @@ export default function Navigation({ token }: { token: string }) {
     //map data for the path
     const [origin, setOrigin] = useState<PositionProps | null>(null);
     const [destination, setDestination] = useState<PositionProps | null>(null);
-    const [wayPoints, setWayPoints] = useState<PositionProps[] | null>(null);
+    const [routeWaypoints, setRouteWaypoints] = useState<PositionProps[] | null>(null);
 
     //isLoaded to wait for user input
     const [isLoaded, setisLoaded] = useState<boolean>(true);
@@ -49,7 +49,7 @@ export default function Navigation({ token }: { token: string }) {
                 //set destination
                 setDestination([result.destination[0], result.destination[1]]);
                 //set waypoints
-                setWayPoints(result.waypoints);
+                setRouteWaypoints(result.waypoints);
                 setisLoaded(true);
             })
             .catch((err) => {
@@ -84,7 +84,7 @@ export default function Navigation({ token }: { token: string }) {
             <Map
                 origin={origin}
                 destination={destination}
-                waypoints={wayPoints}
+                waypoints={routeWaypoints}
                 isLoaded={isLoaded}
             />
         </Box>
