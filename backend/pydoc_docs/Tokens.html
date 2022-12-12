@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Tokens</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Tokens</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/Cody/Documents/Projects/ElenaApp/backend/src/models/Tokens.py">/Users/Cody/Documents/Projects/ElenaApp/backend/src/models/Tokens.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a>(<a href="pydantic.utils.html#Representation">pydantic.utils.Representation</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="Tokens.html#Token">Token</a>
+</font></dt><dt><font face="helvetica, arial"><a href="Tokens.html#TokenData">TokenData</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Token">class <strong>Token</strong></a>(<a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Token">Token</a>(*,&nbsp;access_token:&nbsp;str,&nbsp;token_type:&nbsp;str)&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="Tokens.html#Token">Token</a></dd>
+<dd><a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a></dd>
+<dd><a href="pydantic.utils.html#Representation">pydantic.utils.Representation</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="Token-__json_encoder__"><strong>__json_encoder__</strong></a> = pydantic_encoder(obj: Any) -&gt; Any</dt></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__abstractmethods__</strong> = frozenset()</dl>
+
+<dl><dt><strong>__annotations__</strong> = {'access_token': &lt;class 'str'&gt;, 'token_type': &lt;class 'str'&gt;}</dl>
+
+<dl><dt><strong>__class_vars__</strong> = set()</dl>
+
+<dl><dt><strong>__config__</strong> = &lt;class 'Tokens.Config'&gt;</dl>
+
+<dl><dt><strong>__custom_root_type__</strong> = False</dl>
+
+<dl><dt><strong>__fields__</strong> = {'access_token': ModelField(name='access_token', type=str, required=True), 'token_type': ModelField(name='token_type', type=str, required=True)}</dl>
+
+<dl><dt><strong>__hash__</strong> = None</dl>
+
+<dl><dt><strong>__post_root_validators__</strong> = []</dl>
+
+<dl><dt><strong>__pre_root_validators__</strong> = []</dl>
+
+<dl><dt><strong>__private_attributes__</strong> = {}</dl>
+
+<dl><dt><strong>__schema_cache__</strong> = {}</dl>
+
+<dl><dt><strong>__signature__</strong> = &lt;Signature (*, access_token: str, token_type: str) -&gt; None&gt;</dl>
+
+<dl><dt><strong>__validators__</strong> = {}</dl>
+
+<hr>
+Methods inherited from <a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a>:<br>
+<dl><dt><a name="Token-__eq__"><strong>__eq__</strong></a>(self, other: Any) -&gt; bool</dt></dl>
+
+<dl><dt><a name="Token-__getstate__"><strong>__getstate__</strong></a>(self) -&gt; 'DictAny'</dt></dl>
+
+<dl><dt><a name="Token-__init__"><strong>__init__</strong></a>(__pydantic_self__, **data: Any) -&gt; None</dt><dd><tt>Create&nbsp;a&nbsp;new&nbsp;model&nbsp;by&nbsp;parsing&nbsp;and&nbsp;validating&nbsp;input&nbsp;data&nbsp;from&nbsp;keyword&nbsp;arguments.<br>
+&nbsp;<br>
+Raises&nbsp;ValidationError&nbsp;if&nbsp;the&nbsp;input&nbsp;data&nbsp;cannot&nbsp;be&nbsp;parsed&nbsp;to&nbsp;form&nbsp;a&nbsp;valid&nbsp;model.</tt></dd></dl>
+
+<dl><dt><a name="Token-__iter__"><strong>__iter__</strong></a>(self) -&gt; 'TupleGenerator'</dt><dd><tt>so&nbsp;`<a href="#Token-dict">dict</a>(model)`&nbsp;works</tt></dd></dl>
+
+<dl><dt><a name="Token-__repr_args__"><strong>__repr_args__</strong></a>(self) -&gt; 'ReprArgs'</dt></dl>
+
+<dl><dt><a name="Token-__setattr__"><strong>__setattr__</strong></a>(self, name, value)</dt></dl>
+
+<dl><dt><a name="Token-__setstate__"><strong>__setstate__</strong></a>(self, state: 'DictAny') -&gt; None</dt></dl>
+
+<dl><dt><a name="Token-copy"><strong>copy</strong></a>(self: 'Model', *, include: Union[ForwardRef('AbstractSetIntStr'), ForwardRef('MappingIntStrAny')] = None, exclude: Union[ForwardRef('AbstractSetIntStr'), ForwardRef('MappingIntStrAny')] = None, update: 'DictStrAny' = None, deep: bool = False) -&gt; 'Model'</dt><dd><tt>Duplicate&nbsp;a&nbsp;model,&nbsp;optionally&nbsp;choose&nbsp;which&nbsp;fields&nbsp;to&nbsp;include,&nbsp;exclude&nbsp;and&nbsp;change.<br>
+&nbsp;<br>
+:param&nbsp;include:&nbsp;fields&nbsp;to&nbsp;include&nbsp;in&nbsp;new&nbsp;model<br>
+:param&nbsp;exclude:&nbsp;fields&nbsp;to&nbsp;exclude&nbsp;from&nbsp;new&nbsp;model,&nbsp;as&nbsp;with&nbsp;values&nbsp;this&nbsp;takes&nbsp;precedence&nbsp;over&nbsp;include<br>
+:param&nbsp;update:&nbsp;values&nbsp;to&nbsp;change/add&nbsp;in&nbsp;the&nbsp;new&nbsp;model.&nbsp;Note:&nbsp;the&nbsp;data&nbsp;is&nbsp;not&nbsp;validated&nbsp;before&nbsp;creating<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;new&nbsp;model:&nbsp;you&nbsp;should&nbsp;trust&nbsp;this&nbsp;data<br>
+:param&nbsp;deep:&nbsp;set&nbsp;to&nbsp;`True`&nbsp;to&nbsp;make&nbsp;a&nbsp;deep&nbsp;copy&nbsp;of&nbsp;the&nbsp;model<br>
+:return:&nbsp;new&nbsp;model&nbsp;instance</tt></dd></dl>
+
+<dl><dt><a name="Token-dict"><strong>dict</strong></a>(self, *, include: Union[ForwardRef('AbstractSetIntStr'), ForwardRef('MappingIntStrAny')] = None, exclude: Union[ForwardRef('AbstractSetIntStr'), ForwardRef('MappingIntStrAny')] = None, by_alias: bool = False, skip_defaults: bool = None, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False) -&gt; 'DictStrAny'</dt><dd><tt>Generate&nbsp;a&nbsp;dictionary&nbsp;representation&nbsp;of&nbsp;the&nbsp;model,&nbsp;optionally&nbsp;specifying&nbsp;which&nbsp;fields&nbsp;to&nbsp;include&nbsp;or&nbsp;exclude.</tt></dd></dl>
+
+<dl><dt><a name="Token-json"><strong>json</strong></a>(self, *, include: Union[ForwardRef('AbstractSetIntStr'), ForwardRef('MappingIntStrAny')] = None, exclude: Union[ForwardRef('AbstractSetIntStr'), ForwardRef('MappingIntStrAny')] = None, by_alias: bool = False, skip_defaults: bool = None, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, encoder: Union[Callable[[Any], Any], NoneType] = None, **dumps_kwargs: Any) -&gt; 'unicode'</dt><dd><tt>Generate&nbsp;a&nbsp;JSON&nbsp;representation&nbsp;of&nbsp;the&nbsp;model,&nbsp;`include`&nbsp;and&nbsp;`exclude`&nbsp;arguments&nbsp;as&nbsp;per&nbsp;`<a href="#Token-dict">dict</a>()`.<br>
+&nbsp;<br>
+`encoder`&nbsp;is&nbsp;an&nbsp;optional&nbsp;function&nbsp;to&nbsp;supply&nbsp;as&nbsp;`default`&nbsp;to&nbsp;json.dumps(),&nbsp;other&nbsp;arguments&nbsp;as&nbsp;per&nbsp;`json.dumps()`.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a>:<br>
+<dl><dt><a name="Token-__get_validators__"><strong>__get_validators__</strong></a>() -&gt; 'CallableGenerator'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="Token-construct"><strong>construct</strong></a>(_fields_set: Union[ForwardRef('SetStr'), NoneType] = None, **values: Any) -&gt; 'Model'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;model&nbsp;setting&nbsp;__dict__&nbsp;and&nbsp;__fields_set__&nbsp;from&nbsp;trusted&nbsp;or&nbsp;pre-validated&nbsp;data.<br>
+Default&nbsp;values&nbsp;are&nbsp;respected,&nbsp;but&nbsp;no&nbsp;other&nbsp;validation&nbsp;is&nbsp;performed.<br>
+Behaves&nbsp;as&nbsp;if&nbsp;`Config.extra&nbsp;=&nbsp;'allow'`&nbsp;was&nbsp;set&nbsp;since&nbsp;it&nbsp;adds&nbsp;all&nbsp;passed&nbsp;values</tt></dd></dl>
+
+<dl><dt><a name="Token-from_orm"><strong>from_orm</strong></a>(obj: Any) -&gt; 'Model'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="Token-parse_file"><strong>parse_file</strong></a>(path: Union[str, pathlib.Path], *, content_type: 'unicode' = None, encoding: 'unicode' = 'utf8', proto: pydantic.parse.Protocol = None, allow_pickle: bool = False) -&gt; 'Model'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="Token-parse_obj"><strong>parse_obj</strong></a>(obj: Any) -&gt; 'Model'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="Token-parse_raw"><strong>parse_raw</strong></a>(b: Union[str, bytes], *, content_type: 'unicode' = None, encoding: 'unicode' = 'utf8', proto: pydantic.parse.Protocol = None, allow_pickle: bool = False) -&gt; 'Model'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="Token-schema"><strong>schema</strong></a>(by_alias: bool = True, ref_template: 'unicode' = '#/definitions/{model}') -&gt; 'DictStrAny'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="Token-schema_json"><strong>schema_json</strong></a>(*, by_alias: bool = True, ref_template: 'unicode' = '#/definitions/{model}', **dumps_kwargs: Any) -&gt; 'unicode'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="Token-update_forward_refs"><strong>update_forward_refs</strong></a>(**localns: Any) -&gt; None<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt><dd><tt>Try&nbsp;to&nbsp;update&nbsp;ForwardRefs&nbsp;on&nbsp;fields&nbsp;based&nbsp;on&nbsp;this&nbsp;Model,&nbsp;globalns&nbsp;and&nbsp;localns.</tt></dd></dl>
+
+<dl><dt><a name="Token-validate"><strong>validate</strong></a>(value: Any) -&gt; 'Model'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__fields_set__</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a>:<br>
+<dl><dt><strong>Config</strong> = &lt;class 'pydantic.main.BaseConfig'&gt;</dl>
+
+<hr>
+Methods inherited from <a href="pydantic.utils.html#Representation">pydantic.utils.Representation</a>:<br>
+<dl><dt><a name="Token-__pretty__"><strong>__pretty__</strong></a>(self, fmt: Callable[[Any], Any], **kwargs: Any) -&gt; Generator[Any, NoneType, NoneType]</dt><dd><tt>Used&nbsp;by&nbsp;devtools&nbsp;(https://python-devtools.helpmanual.io/)&nbsp;to&nbsp;provide&nbsp;a&nbsp;human&nbsp;readable&nbsp;representations&nbsp;of&nbsp;objects</tt></dd></dl>
+
+<dl><dt><a name="Token-__repr__"><strong>__repr__</strong></a>(self) -&gt; 'unicode'</dt></dl>
+
+<dl><dt><a name="Token-__repr_name__"><strong>__repr_name__</strong></a>(self) -&gt; 'unicode'</dt><dd><tt>Name&nbsp;of&nbsp;the&nbsp;instance's&nbsp;class,&nbsp;used&nbsp;in&nbsp;__repr__.</tt></dd></dl>
+
+<dl><dt><a name="Token-__repr_str__"><strong>__repr_str__</strong></a>(self, join_str: 'unicode') -&gt; 'unicode'</dt></dl>
+
+<dl><dt><a name="Token-__str__"><strong>__str__</strong></a>(self) -&gt; 'unicode'</dt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="TokenData">class <strong>TokenData</strong></a>(<a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#TokenData">TokenData</a>(*,&nbsp;email:&nbsp;str)&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="Tokens.html#TokenData">TokenData</a></dd>
+<dd><a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a></dd>
+<dd><a href="pydantic.utils.html#Representation">pydantic.utils.Representation</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="TokenData-__json_encoder__"><strong>__json_encoder__</strong></a> = pydantic_encoder(obj: Any) -&gt; Any</dt></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__abstractmethods__</strong> = frozenset()</dl>
+
+<dl><dt><strong>__annotations__</strong> = {'email': &lt;class 'str'&gt;}</dl>
+
+<dl><dt><strong>__class_vars__</strong> = set()</dl>
+
+<dl><dt><strong>__config__</strong> = &lt;class 'Tokens.Config'&gt;</dl>
+
+<dl><dt><strong>__custom_root_type__</strong> = False</dl>
+
+<dl><dt><strong>__fields__</strong> = {'email': ModelField(name='email', type=str, required=True)}</dl>
+
+<dl><dt><strong>__hash__</strong> = None</dl>
+
+<dl><dt><strong>__post_root_validators__</strong> = []</dl>
+
+<dl><dt><strong>__pre_root_validators__</strong> = []</dl>
+
+<dl><dt><strong>__private_attributes__</strong> = {}</dl>
+
+<dl><dt><strong>__schema_cache__</strong> = {}</dl>
+
+<dl><dt><strong>__signature__</strong> = &lt;Signature (*, email: str) -&gt; None&gt;</dl>
+
+<dl><dt><strong>__validators__</strong> = {}</dl>
+
+<hr>
+Methods inherited from <a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a>:<br>
+<dl><dt><a name="TokenData-__eq__"><strong>__eq__</strong></a>(self, other: Any) -&gt; bool</dt></dl>
+
+<dl><dt><a name="TokenData-__getstate__"><strong>__getstate__</strong></a>(self) -&gt; 'DictAny'</dt></dl>
+
+<dl><dt><a name="TokenData-__init__"><strong>__init__</strong></a>(__pydantic_self__, **data: Any) -&gt; None</dt><dd><tt>Create&nbsp;a&nbsp;new&nbsp;model&nbsp;by&nbsp;parsing&nbsp;and&nbsp;validating&nbsp;input&nbsp;data&nbsp;from&nbsp;keyword&nbsp;arguments.<br>
+&nbsp;<br>
+Raises&nbsp;ValidationError&nbsp;if&nbsp;the&nbsp;input&nbsp;data&nbsp;cannot&nbsp;be&nbsp;parsed&nbsp;to&nbsp;form&nbsp;a&nbsp;valid&nbsp;model.</tt></dd></dl>
+
+<dl><dt><a name="TokenData-__iter__"><strong>__iter__</strong></a>(self) -&gt; 'TupleGenerator'</dt><dd><tt>so&nbsp;`<a href="#TokenData-dict">dict</a>(model)`&nbsp;works</tt></dd></dl>
+
+<dl><dt><a name="TokenData-__repr_args__"><strong>__repr_args__</strong></a>(self) -&gt; 'ReprArgs'</dt></dl>
+
+<dl><dt><a name="TokenData-__setattr__"><strong>__setattr__</strong></a>(self, name, value)</dt></dl>
+
+<dl><dt><a name="TokenData-__setstate__"><strong>__setstate__</strong></a>(self, state: 'DictAny') -&gt; None</dt></dl>
+
+<dl><dt><a name="TokenData-copy"><strong>copy</strong></a>(self: 'Model', *, include: Union[ForwardRef('AbstractSetIntStr'), ForwardRef('MappingIntStrAny')] = None, exclude: Union[ForwardRef('AbstractSetIntStr'), ForwardRef('MappingIntStrAny')] = None, update: 'DictStrAny' = None, deep: bool = False) -&gt; 'Model'</dt><dd><tt>Duplicate&nbsp;a&nbsp;model,&nbsp;optionally&nbsp;choose&nbsp;which&nbsp;fields&nbsp;to&nbsp;include,&nbsp;exclude&nbsp;and&nbsp;change.<br>
+&nbsp;<br>
+:param&nbsp;include:&nbsp;fields&nbsp;to&nbsp;include&nbsp;in&nbsp;new&nbsp;model<br>
+:param&nbsp;exclude:&nbsp;fields&nbsp;to&nbsp;exclude&nbsp;from&nbsp;new&nbsp;model,&nbsp;as&nbsp;with&nbsp;values&nbsp;this&nbsp;takes&nbsp;precedence&nbsp;over&nbsp;include<br>
+:param&nbsp;update:&nbsp;values&nbsp;to&nbsp;change/add&nbsp;in&nbsp;the&nbsp;new&nbsp;model.&nbsp;Note:&nbsp;the&nbsp;data&nbsp;is&nbsp;not&nbsp;validated&nbsp;before&nbsp;creating<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;new&nbsp;model:&nbsp;you&nbsp;should&nbsp;trust&nbsp;this&nbsp;data<br>
+:param&nbsp;deep:&nbsp;set&nbsp;to&nbsp;`True`&nbsp;to&nbsp;make&nbsp;a&nbsp;deep&nbsp;copy&nbsp;of&nbsp;the&nbsp;model<br>
+:return:&nbsp;new&nbsp;model&nbsp;instance</tt></dd></dl>
+
+<dl><dt><a name="TokenData-dict"><strong>dict</strong></a>(self, *, include: Union[ForwardRef('AbstractSetIntStr'), ForwardRef('MappingIntStrAny')] = None, exclude: Union[ForwardRef('AbstractSetIntStr'), ForwardRef('MappingIntStrAny')] = None, by_alias: bool = False, skip_defaults: bool = None, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False) -&gt; 'DictStrAny'</dt><dd><tt>Generate&nbsp;a&nbsp;dictionary&nbsp;representation&nbsp;of&nbsp;the&nbsp;model,&nbsp;optionally&nbsp;specifying&nbsp;which&nbsp;fields&nbsp;to&nbsp;include&nbsp;or&nbsp;exclude.</tt></dd></dl>
+
+<dl><dt><a name="TokenData-json"><strong>json</strong></a>(self, *, include: Union[ForwardRef('AbstractSetIntStr'), ForwardRef('MappingIntStrAny')] = None, exclude: Union[ForwardRef('AbstractSetIntStr'), ForwardRef('MappingIntStrAny')] = None, by_alias: bool = False, skip_defaults: bool = None, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, encoder: Union[Callable[[Any], Any], NoneType] = None, **dumps_kwargs: Any) -&gt; 'unicode'</dt><dd><tt>Generate&nbsp;a&nbsp;JSON&nbsp;representation&nbsp;of&nbsp;the&nbsp;model,&nbsp;`include`&nbsp;and&nbsp;`exclude`&nbsp;arguments&nbsp;as&nbsp;per&nbsp;`<a href="#TokenData-dict">dict</a>()`.<br>
+&nbsp;<br>
+`encoder`&nbsp;is&nbsp;an&nbsp;optional&nbsp;function&nbsp;to&nbsp;supply&nbsp;as&nbsp;`default`&nbsp;to&nbsp;json.dumps(),&nbsp;other&nbsp;arguments&nbsp;as&nbsp;per&nbsp;`json.dumps()`.</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a>:<br>
+<dl><dt><a name="TokenData-__get_validators__"><strong>__get_validators__</strong></a>() -&gt; 'CallableGenerator'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="TokenData-construct"><strong>construct</strong></a>(_fields_set: Union[ForwardRef('SetStr'), NoneType] = None, **values: Any) -&gt; 'Model'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt><dd><tt>Creates&nbsp;a&nbsp;new&nbsp;model&nbsp;setting&nbsp;__dict__&nbsp;and&nbsp;__fields_set__&nbsp;from&nbsp;trusted&nbsp;or&nbsp;pre-validated&nbsp;data.<br>
+Default&nbsp;values&nbsp;are&nbsp;respected,&nbsp;but&nbsp;no&nbsp;other&nbsp;validation&nbsp;is&nbsp;performed.<br>
+Behaves&nbsp;as&nbsp;if&nbsp;`Config.extra&nbsp;=&nbsp;'allow'`&nbsp;was&nbsp;set&nbsp;since&nbsp;it&nbsp;adds&nbsp;all&nbsp;passed&nbsp;values</tt></dd></dl>
+
+<dl><dt><a name="TokenData-from_orm"><strong>from_orm</strong></a>(obj: Any) -&gt; 'Model'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="TokenData-parse_file"><strong>parse_file</strong></a>(path: Union[str, pathlib.Path], *, content_type: 'unicode' = None, encoding: 'unicode' = 'utf8', proto: pydantic.parse.Protocol = None, allow_pickle: bool = False) -&gt; 'Model'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="TokenData-parse_obj"><strong>parse_obj</strong></a>(obj: Any) -&gt; 'Model'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="TokenData-parse_raw"><strong>parse_raw</strong></a>(b: Union[str, bytes], *, content_type: 'unicode' = None, encoding: 'unicode' = 'utf8', proto: pydantic.parse.Protocol = None, allow_pickle: bool = False) -&gt; 'Model'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="TokenData-schema"><strong>schema</strong></a>(by_alias: bool = True, ref_template: 'unicode' = '#/definitions/{model}') -&gt; 'DictStrAny'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="TokenData-schema_json"><strong>schema_json</strong></a>(*, by_alias: bool = True, ref_template: 'unicode' = '#/definitions/{model}', **dumps_kwargs: Any) -&gt; 'unicode'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<dl><dt><a name="TokenData-update_forward_refs"><strong>update_forward_refs</strong></a>(**localns: Any) -&gt; None<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt><dd><tt>Try&nbsp;to&nbsp;update&nbsp;ForwardRefs&nbsp;on&nbsp;fields&nbsp;based&nbsp;on&nbsp;this&nbsp;Model,&nbsp;globalns&nbsp;and&nbsp;localns.</tt></dd></dl>
+
+<dl><dt><a name="TokenData-validate"><strong>validate</strong></a>(value: Any) -&gt; 'Model'<font color="#909090"><font face="helvetica, arial"> from <a href="pydantic.main.html#ModelMetaclass">pydantic.main.ModelMetaclass</a></font></font></dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__fields_set__</strong></dt>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="pydantic.main.html#BaseModel">pydantic.main.BaseModel</a>:<br>
+<dl><dt><strong>Config</strong> = &lt;class 'pydantic.main.BaseConfig'&gt;</dl>
+
+<hr>
+Methods inherited from <a href="pydantic.utils.html#Representation">pydantic.utils.Representation</a>:<br>
+<dl><dt><a name="TokenData-__pretty__"><strong>__pretty__</strong></a>(self, fmt: Callable[[Any], Any], **kwargs: Any) -&gt; Generator[Any, NoneType, NoneType]</dt><dd><tt>Used&nbsp;by&nbsp;devtools&nbsp;(https://python-devtools.helpmanual.io/)&nbsp;to&nbsp;provide&nbsp;a&nbsp;human&nbsp;readable&nbsp;representations&nbsp;of&nbsp;objects</tt></dd></dl>
+
+<dl><dt><a name="TokenData-__repr__"><strong>__repr__</strong></a>(self) -&gt; 'unicode'</dt></dl>
+
+<dl><dt><a name="TokenData-__repr_name__"><strong>__repr_name__</strong></a>(self) -&gt; 'unicode'</dt><dd><tt>Name&nbsp;of&nbsp;the&nbsp;instance's&nbsp;class,&nbsp;used&nbsp;in&nbsp;__repr__.</tt></dd></dl>
+
+<dl><dt><a name="TokenData-__repr_str__"><strong>__repr_str__</strong></a>(self, join_str: 'unicode') -&gt; 'unicode'</dt></dl>
+
+<dl><dt><a name="TokenData-__str__"><strong>__str__</strong></a>(self) -&gt; 'unicode'</dt></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>Union</strong> = typing.Union</td></tr></table>
+</body></html>

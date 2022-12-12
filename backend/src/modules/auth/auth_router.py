@@ -18,6 +18,12 @@ auth_router = APIRouter()
 
 @auth_router.post("/login", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    """
+    Login endpoint for user to get access token.
+
+    :param form_data: OAuth2PasswordRequestForm Username and password
+    :return: Token
+    """
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
         raise CredentialException
@@ -27,6 +33,12 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 @auth_router.post("/register", response_model=UserExport, status_code=201)
 async def register_user(user_create: UserCreate):
+    """
+    Register endpoint for user to create account.
+
+    :param user_create: UserCreate User Creation Request
+    :return: UserExport Created User Account
+    """
     new_user = UserInternal(
         **user_create.dict(), hashed_password=get_password_hash(user_create.password)
     )
@@ -45,4 +57,10 @@ async def register_user(user_create: UserCreate):
 
 @auth_router.get("/profile", response_model=UserExport)
 async def get_current_user(current_user: UserInternal = Depends(get_current_user)):
+    """
+    Get current user profile.
+
+    :param current_user: UserInternal Current User
+    :return: UserExport Current User Profile
+    """
     return current_user

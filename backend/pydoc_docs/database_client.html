@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module database_client</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>database_client</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/Cody/Documents/Projects/ElenaApp/backend/src/modules/database/database_client.py">/Users/Cody/Documents/Projects/ElenaApp/backend/src/modules/database/database_client.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-create_user_db"><strong>create_user_db</strong></a>(user: src.models.Users.UserInternal)</dt><dd><tt>Create&nbsp;user&nbsp;in&nbsp;database.</tt></dd></dl>
+ <dl><dt><a name="-get_user_db"><strong>get_user_db</strong></a>(email: str) -&gt; src.models.Users.UserInternal</dt><dd><tt>Get&nbsp;user&nbsp;from&nbsp;database.<br>
+&nbsp;<br>
+:param&nbsp;email:&nbsp;str&nbsp;User's&nbsp;email<br>
+:return:&nbsp;UserInternal&nbsp;User&nbsp;Data</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>db</strong> = Database(MongoClient(host=['localhost:27017'], d...=dict, tz_aware=False, connect=True), 'elena_db')<br>
+<strong>user_collection</strong> = Collection(Database(MongoClient(host=['localhost...aware=False, connect=True), 'elena_db'), 'users')</td></tr></table>
+</body></html>

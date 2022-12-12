@@ -23,14 +23,21 @@ app = FastAPI()
 
 
 def verify_password(plain_password, hashed_password):
+    """
+    Verify password with hashed password.
+    """
     return pwd_context.verify(plain_password, hashed_password)
 
 
 def get_password_hash(password):
+    """
+    Obtainshas of provided password.
+    """
     return pwd_context.hash(password)
 
 
 def authenticate_user(email: str, password: str):
+    """Authenticate user with email and password."""
     user: UserInternal = get_user_db(email)
     if user and verify_password(password, user.hashed_password):
         return user
@@ -38,6 +45,9 @@ def authenticate_user(email: str, password: str):
 
 
 def create_access_token(data: dict):
+    """
+    Create access token with provided data.
+    """
     data_to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=AUTH_ACCESS_TOKEN_EXPIRE_MINUTES)
     data_to_encode.update({"exp": expire})
@@ -45,6 +55,9 @@ def create_access_token(data: dict):
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
+    """
+    Parses token and returns current user.
+    """
     try:
         payload = jwt.decode(token, AUTH_SECRET_KEY, algorithms=[AUTH_ALGORITHM])
         email: str = payload.get("sub")
