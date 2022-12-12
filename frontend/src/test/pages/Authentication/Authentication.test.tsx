@@ -19,7 +19,7 @@ describe('Authentication', () => {
     })
 
     it('should render login components on load', async () => {
-        const { getByText, getByTestId } = render(<Authentication setToken={noop} />);
+        const { getByText, getByTestId } = render(<Authentication token='' setToken={noop} />);
         expect(getByText('Login')).toBeInTheDocument();
         expect(getByTestId('loginEmail')).toBeInTheDocument();
         expect(getByTestId('loginPassword')).toBeInTheDocument();
@@ -27,14 +27,14 @@ describe('Authentication', () => {
     });
 
     it('should show error on login with no username or password', async () => {
-        const { getByTestId } = render(<Authentication setToken={noop} />);
+        const { getByTestId } = render(<Authentication token='' setToken={noop} />);
 
         userEvent.click(getByTestId('loginButton'))
         expect(getByTestId('loginError')).toBeInTheDocument();
     });
 
     it('should show error on login with no email', async () => {
-        const { getByTestId } = render(<Authentication setToken={noop} />);
+        const { getByTestId } = render(<Authentication token='' setToken={noop} />);
 
         const passwordField = getByTestId("loginPassword");
         await fireEvent.change(passwordField, { target: { value: 'password' } });
@@ -44,7 +44,7 @@ describe('Authentication', () => {
     });
 
     it('should show error on login with no password', async () => {
-        const { getByTestId } = render(<Authentication setToken={noop} />);
+        const { getByTestId } = render(<Authentication token='' setToken={noop} />);
 
         const emailField = getByTestId("loginEmail");
         await fireEvent.change(emailField, { target: { value: 'user@email.com' } });
@@ -56,7 +56,7 @@ describe('Authentication', () => {
     it('should set token on login with valid credentials', async () => {
         fetchMock.mockResponses(JSON.stringify({ access_token: 'token' }));
         const setTokenMock = jest.fn();
-        const { findByTestId, getByTestId } = render(<Authentication setToken={setTokenMock} />);
+        const { findByTestId, getByTestId } = render(<Authentication token='' setToken={setTokenMock} />);
 
         const emailField = getByTestId("loginEmail");
         const passwordField = getByTestId("loginPassword");
@@ -74,7 +74,7 @@ describe('Authentication', () => {
     it('should show error on login with good credentials but bad server response.', async () => {
         fetchMock.mockRejectOnce(new Error('Server down...'));
 
-        const { findByTestId, getByTestId } = render(<Authentication setToken={noop} />);
+        const { findByTestId, getByTestId } = render(<Authentication token='' setToken={noop} />);
 
         const emailField = getByTestId("loginEmail");
         const passwordField = getByTestId("loginPassword");

@@ -23,6 +23,7 @@ export function NavigationHistory({ open, setOpen, token, ...props }: { token: s
         <Dialog
             open={open}
             onClose={() => setOpen(false)}
+            maxWidth="lg"
         >
             <DialogTitle>
                 Navigation History
@@ -47,7 +48,7 @@ export function NavigationHistory({ open, setOpen, token, ...props }: { token: s
                                     >
                                         <TableCell>{get(hist, 'origin_name')}</TableCell>
                                         <TableCell>{get(hist, 'destination_name')}</TableCell>
-                                        <TableCell>{get(hist, 'distance')}</TableCell>
+                                        <TableCell>{parseFloat(get(hist, 'distance')).toFixed(2)} Miles</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

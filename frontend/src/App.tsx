@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Authentication from "./pages/Authentication/Authentication";
 import Navigation from "./pages/Navigation/Navigation";
 import isEmpty from "lodash/isEmpty";
-// import { AccountAccessIcon } from 'shared/AccountAccessIcon';
+import { AccountAccessIcon } from 'shared/AccountAccessIcon';
 
 function App() {
     const [token, setToken] = React.useState<string | null>(null);
@@ -28,7 +28,7 @@ function App() {
     return (
         <BrowserRouter>
             {isEmpty(token) ? (
-                <Authentication setToken={updateAndSaveToken} />
+                <Authentication token={token} setToken={updateAndSaveToken} />
             ) : (
                 <>
                     <Routes>
@@ -39,7 +39,7 @@ function App() {
                         <Route
                             path="/login"
                             element={
-                                <Authentication setToken={updateAndSaveToken} />
+                                <Authentication token={token} setToken={updateAndSaveToken} />
                             }
                         />
                         <Route
@@ -47,7 +47,7 @@ function App() {
                             element={<Navigation token={token as string} />}
                         />
                     </Routes>
-                    {/* <AccountAccessIcon token={token} setToken={updateAndSaveToken} /> */}
+                    <AccountAccessIcon token={token} setToken={updateAndSaveToken} />
                 </>
             )}
         </BrowserRouter>

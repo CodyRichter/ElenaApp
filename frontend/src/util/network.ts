@@ -57,10 +57,10 @@ export class Network {
             if (has(data, 'history')) {
                 return get(data, 'history');
             } else {
-                throw new Error('Unexpected response from server. Please try again later.');
+                throw new Error('Unable to fetch navigation history.');
             }
         }).catch(error => {
-            throw new Error('Unable to connect to server. Please try again later.');
+            throw new Error(error);
         });
     }
 

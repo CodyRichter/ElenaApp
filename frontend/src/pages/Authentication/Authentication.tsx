@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Alert,
     Button,
@@ -17,7 +17,7 @@ import { SignupDialog } from 'pages/Authentication/SignupDialog';
 
 
 export default function Authentication(
-    { setToken }: { setToken: (token: string) => void }
+    { token, setToken }: { token: string | null, setToken: (token: string) => void }
 ) {
 
     const [username, setUsername] = React.useState<string>('');
@@ -47,12 +47,16 @@ export default function Authentication(
             setPassword('');
             setError('');
             setToken(token);
-            navigate('/navigate');
         }).catch((error: any) => {
             setError(error.message);
         });
     };
 
+    useEffect(() => {
+        if (!isEmpty(token)) {
+            navigate('/navigate');
+        }
+    }, [token, navigate]);
 
     return (
         <>

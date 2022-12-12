@@ -12,8 +12,8 @@ describe("Navigation Container", () => {
         fetchMock.resetMocks();
     });
 
-    // it('should render components on load', async () => {
-    //     const { getByTestId } = render(<Navigation />);
-    //     expect(getByTestId('sidebar')).toBeInTheDocument();
-    // });
+    it('should render components on load', async () => {
+        const { getByTestId } = render(<Navigation token={""} />);
+        expect(getByTestId('sidebar')).toBeInTheDocument();
+    });
 });
