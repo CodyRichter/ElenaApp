@@ -20,7 +20,7 @@ describe('Navigation Sidebar', () => {
             endLocation={''} setEndLocation={noop}
             navigationType={''} setNavigationType={noop}
             navigationErrorHidden={true} setNavigationErrorHidden={noop}
-            sliderValue={''} handleSliderChange={noop}
+            sliderValue={''} handleSliderChange={noop} isLoaded={true}
             calculateRoute={jest.fn().mockImplementationOnce(() => Promise.resolve())} />);
         expect(getByText('Navigate')).toBeInTheDocument();
         expect(getByTestId('startLocation')).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('Navigation Sidebar', () => {
             endLocation={''} setEndLocation={noop}
             navigationType={''} setNavigationType={noop}
             navigationErrorHidden={true} setNavigationErrorHidden={noop}
-            sliderValue={''} handleSliderChange={noop}
+            sliderValue={''} handleSliderChange={noop} isLoaded={true}
             calculateRoute={jest.fn().mockImplementationOnce(() => Promise.resolve())} />);
         expect(queryByTestId('navigationError')).not.toBeInTheDocument();
     });
@@ -46,7 +46,7 @@ describe('Navigation Sidebar', () => {
             endLocation={''} setEndLocation={noop}
             navigationType={''} setNavigationType={noop}
             navigationErrorHidden={true} setNavigationErrorHidden={noop}
-            sliderValue={''} handleSliderChange={noop}
+            sliderValue={''} handleSliderChange={noop} isLoaded={true}
             calculateRoute={jest.fn().mockImplementationOnce(() => Promise.resolve())} />);
         userEvent.type(getByTestId('startLocation'), 'start');
         userEvent.type(getByTestId('endLocation'), 'end');
@@ -60,7 +60,7 @@ describe('Navigation Sidebar', () => {
             endLocation={''} setEndLocation={noop}
             navigationType={''} setNavigationType={noop}
             navigationErrorHidden={true} setNavigationErrorHidden={noop}
-            sliderValue={''} handleSliderChange={noop}
+            sliderValue={''} handleSliderChange={noop} isLoaded={true}
             calculateRoute={jest.fn().mockImplementationOnce(() => Promise.resolve())} />);
         userEvent.click(getByTestId('directButton'));
         userEvent.click(getByTestId('minimizeElevationButton'));

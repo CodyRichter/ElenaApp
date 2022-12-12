@@ -26,13 +26,14 @@ export default function Navigation({ token }: { token: string }) {
     const [wayPoints, setWayPoints] = useState<PositionProps[] | null>(null);
 
     //isLoaded to wait for user input
-    const [isLoaded, setisLoaded] = useState<boolean>(false);
+    const [isLoaded, setisLoaded] = useState<boolean>(true);
 
     // calculating route
     async function calculateRoute() {
         if (startLocation === "" || endLocation === "") {
             return;
         }
+        setisLoaded(false);
 
         await Network.navigate(
             startLocation,
@@ -51,7 +52,10 @@ export default function Navigation({ token }: { token: string }) {
                 setWayPoints(result.waypoints);
                 setisLoaded(true);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err);
+                setisLoaded(true);
+            });
     }
 
     return (
@@ -75,6 +79,7 @@ export default function Navigation({ token }: { token: string }) {
                 sliderValue={sliderValue}
                 handleSliderChange={handleSliderChange}
                 calculateRoute={calculateRoute}
+                isLoaded={isLoaded}
             />
             <Map
                 origin={origin}
