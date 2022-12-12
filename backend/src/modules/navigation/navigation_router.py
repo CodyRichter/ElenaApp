@@ -1,9 +1,17 @@
 import osmnx as ox
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+
 from src.models.Navigation import (
+    NavigationHistoryInstance,
     NavigationHistoryResponse,
     NavigationRequest,
     NavigationResponse,
+)
+from src.models.Users import UserInternal
+from src.modules.auth.auth_utils import get_current_user
+from src.modules.database.database_client import (
+    get_navigation_history_db,
+    save_navigation_history_db,
 )
 from src.modules.pathfinding import a_star
 
@@ -11,7 +19,9 @@ navigation_router = APIRouter()
 
 
 @navigation_router.post("/path", response_model=NavigationResponse, status_code=200)
-async def get_nav_route(nav_req: NavigationRequest):
+async def get_nav_route(
+    nav_req: NavigationRequest, current_user: UserInternal = Depends(get_current_user)
+):
     """
     Get the navigation route from the origin to the destination.
     If a mode is specified, the route will be optimized for that mode.
@@ -32,29 +42,21 @@ async def get_nav_route(nav_req: NavigationRequest):
         waypoints=route_data,
         distance=distance,
     )
+
+    save_navigation_history_db(
+        NavigationHistoryInstance(**nav_res.dict(), email=current_user.email)
+    )
+
     return nav_res
 
 
 @navigation_router.get(
     "/history", response_model=NavigationHistoryResponse, status_code=200
 )
-async def get_nav_history():
+async def get_nav_history(current_user: UserInternal = Depends(get_current_user)):
     """
     Get the navigation history of the user.
     """
 
-    # TODO: Query Database for User's Navigation History
-    # TODO: Store the Navigation History in the Database
-    # TODO: Store names instead of GPS coordinates for the origin and destination
-    return NavigationHistoryResponse(
-        history=[
-            NavigationResponse(
-                origin_name="Origin",
-                destination_name="Destination",
-                origin=(0, 0),
-                destination=(10, 10),
-                waypoints=[(0, 0), (10, 10)],
-                distance=10,
-            )
-        ]
-    )
+    user_navigation_history = get_navigation_history_db(current_user.email)
+    return NavigationHistoryResponse(history=user_navigation_history)

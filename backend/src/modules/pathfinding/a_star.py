@@ -6,6 +6,7 @@ from typing import List, Tuple
 import networkx as nx
 import osmnx as ox
 from haversine import haversine
+
 from src.modules.pathfinding.osm_util import *
 
 try:

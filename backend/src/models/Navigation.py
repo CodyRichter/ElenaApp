@@ -28,5 +28,9 @@ class NavigationResponse(BaseModel):
     distance: float  # Total distance
 
 
+class NavigationHistoryInstance(NavigationResponse):
+    email: str
+
+
 class NavigationHistoryResponse(BaseModel):
-    history: List[NavigationResponse]
+    history: List[NavigationHistoryInstance]

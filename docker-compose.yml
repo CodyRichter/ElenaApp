@@ -29,6 +29,7 @@ services:
       - /app/node_modules
   elena_dev_db:
     container_name: elena-dev-db
+    command: mongod --quiet --logpath /dev/null
     image: mongo:latest
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
@@ -38,7 +39,7 @@ services:
     volumes:
       - mongo_dev_db_container:/data/db
   elena_elevation_server:
-    container_name: elena_elevation_server
+    container_name: elena-elevation-server
     build:
       context: elevation
       dockerfile: docker/Dockerfile
@@ -49,6 +50,6 @@ services:
       - PYTHONUNBUFFERED=1
     command: stdbuf -i0 -o0 -e0 python3 server.py
     ports:
-        - 8080:8080
+      - 8080:8080
 volumes:
   mongo_dev_db_container:
