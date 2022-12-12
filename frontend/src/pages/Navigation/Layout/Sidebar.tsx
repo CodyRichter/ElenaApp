@@ -11,6 +11,7 @@ import {
     ButtonGroup,
     TextField,
     Typography,
+    CircularProgress,
 } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import { NavigationTypeButton } from "./SidebarComponents/NavigationTypeButton";
@@ -28,6 +29,7 @@ interface SidebarProps {
     sliderValue: number | string | Array<number | string>;
     handleSliderChange: (event: Event, newValue: number | number[]) => void;
     calculateRoute: () => Promise<void>;
+    isLoaded: boolean;
 }
 
 export default function Sidebar({
@@ -42,6 +44,7 @@ export default function Sidebar({
     sliderValue,
     handleSliderChange,
     calculateRoute,
+    isLoaded,
 }: SidebarProps) {
     async function startNavigation() {
         setNavigationErrorHidden(false);
@@ -167,8 +170,9 @@ export default function Sidebar({
                     onClick={calculateRoute}
                     fullWidth
                     data-testid="startNavigationButton"
+                    disabled={!isLoaded}
                 >
-                    Navigate
+                    {isLoaded ? "Navigate" : <CircularProgress />}
                 </Button>
 
                 <NavigationErrorBox

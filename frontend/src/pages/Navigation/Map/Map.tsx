@@ -7,8 +7,12 @@ import {
     Polyline,
     Popup,
 } from "react-leaflet";
+import { renderToStaticMarkup } from "react-dom/server";
 import useGeoLocation from "hooks/useGeolocation";
-import CreatePaths from "./CreatePaths";
+import { isEmpty } from "lodash";
+import { Fab } from "@mui/material";
+import { divIcon } from "leaflet";
+import { PinDrop, TripOrigin } from "@mui/icons-material";
 
 type PositionProps = [number, number];
 
@@ -18,6 +22,26 @@ interface MapProps {
     waypoints: PositionProps[] | null;
     isLoaded: boolean;
 }
+
+const startRender = renderToStaticMarkup(
+    <Fab size="small" color="primary">
+        <TripOrigin />
+    </Fab>
+);
+
+const endRender = renderToStaticMarkup(
+    <Fab size="small" color="secondary">
+        <PinDrop />
+    </Fab>
+);
+
+const startLocationIcon = divIcon({
+    html: startRender
+});
+
+const endLocationIcon = divIcon({
+    html: endRender
+});
 
 const markerHtmlStyles = `
   background-color: #0978f6;
@@ -61,15 +85,15 @@ const Map = ({ origin, destination, waypoints, isLoaded }: MapProps) => {
 
             {/*======= MARKER FOR ORIGIN ======= */}
             {isLoaded && origin !== null && (
-                <Marker position={[origin[0], origin[1]]} icon={icon}>
+                <Marker position={[origin[0], origin[1]]} icon={startLocationIcon}>
                     <Popup>
-                        <p>User Location</p>
+                        <p>Origin</p>
                     </Popup>
                 </Marker>
             )}
 
             {/*======= THE PATH/PATHS ======= */}
-            {isLoaded && waypoints !== null && (
+            {isLoaded && !isEmpty(waypoints) && (
                 <FeatureGroup>
                     <Polyline positions={waypoints} color="red" />
                 </FeatureGroup>
@@ -77,9 +101,9 @@ const Map = ({ origin, destination, waypoints, isLoaded }: MapProps) => {
 
             {/*======= MARKER FOR DESTINATION ======= */}
             {isLoaded && destination !== null && (
-                <Marker position={[destination[0], destination[1]]} icon={icon}>
+                <Marker position={[destination[0], destination[1]]} icon={endLocationIcon}>
                     <Popup>
-                        <p>User Location</p>
+                        <p>Destination</p>
                     </Popup>
                 </Marker>
             )}
