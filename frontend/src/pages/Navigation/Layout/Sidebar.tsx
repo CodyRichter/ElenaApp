@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
     KeyboardArrowUp,
     KeyboardArrowDown,
@@ -11,10 +11,15 @@ import {
     ButtonGroup,
     TextField,
     Typography,
+    Autocomplete,
+    createFilterOptions,
 } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import { NavigationTypeButton } from "./SidebarComponents/NavigationTypeButton";
 import { NavigationErrorBox } from "./SidebarComponents/NavigationErrorBox";
+
+import { parseLocation } from "parse-address";
+import qs from "qs";
 
 interface SidebarProps {
     startLocation: string;
@@ -43,9 +48,81 @@ export default function Sidebar({
     handleSliderChange,
     calculateRoute,
 }: SidebarProps) {
-    async function startNavigation() {
-        setNavigationErrorHidden(false);
-    }
+    const [originSuggestiongs, setoriginSuggestiongs] = useState<string[]>([]);
+    const [destinationSuggestiongs, setdestinationSuggestiongs] = useState<
+        string[]
+    >([]);
+
+    const fetchPlaces = async (query: any) => {
+        const {
+            number = "",
+            prefix = "",
+            street = "",
+            suffix = "",
+            type = "",
+            city = "",
+            state = "",
+            zip = "",
+        } = parseLocation(query) || {};
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/?${qs.stringify({
+                street: [number, prefix, street, suffix, type].join(" "),
+                city: city,
+                state: state,
+                postalcode: zip,
+                building: "residential",
+                addressdetails: 1,
+                format: "geojson",
+            })}`
+        );
+        const data = await response.json();
+        let features: string[] = [];
+        data.features.forEach((feature: any) => {
+            features.push(feature.properties.display_name);
+        });
+        setoriginSuggestiongs(features);
+    };
+
+    const fetchPlacesForDestination = async (query: any) => {
+        const {
+            number = "",
+            prefix = "",
+            street = "",
+            suffix = "",
+            type = "",
+            city = "",
+            state = "",
+            zip = "",
+        } = parseLocation(query) || {};
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/?${qs.stringify({
+                street: [number, prefix, street, suffix, type].join(" "),
+                city: city,
+                state: state,
+                postalcode: zip,
+                building: "residential",
+                addressdetails: 1,
+                format: "geojson",
+            })}`
+        );
+        const data = await response.json();
+        let features: string[] = [];
+        data.features.forEach((feature: any) => {
+            features.push(feature.properties.display_name);
+        });
+        setdestinationSuggestiongs(features);
+    };
+
+    const OPTIONS_LIMIT = 3;
+    const defaultFilterOptions = createFilterOptions();
+
+    const filterOptions = (options: any, state: any) => {
+        return defaultFilterOptions(options, state).slice(0, OPTIONS_LIMIT);
+    };
+
+    useEffect(() => {
+        console.log(startLocation);
+    }, [startLocation, endLocation]);
 
     return (
         <Drawer
@@ -60,27 +137,54 @@ export default function Sidebar({
                     Route Selection
                 </Typography>
 
-                <TextField
-                    fullWidth
-                    inputProps={{ "data-testid": "startLocation" }}
-                    className="mt-3 mb-3"
-                    label="Origin"
-                    variant="outlined"
-                    onChange={(event) => setStartLocation(event?.target.value)}
+                <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={originSuggestiongs}
+                    sx={{ width: 300 }}
+                    onChange={(event, newValue) => {
+                        setStartLocation((newValue as string) || "");
+                    }}
+                    onInputChange={(event, newInputValue) => {
+                        fetchPlaces(newInputValue);
+                    }}
+                    filterOptions={filterOptions}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Origin"
+                            variant="outlined"
+                            className="mt-3 mb-3"
+                        />
+                    )}
                 />
 
-                <TextField
-                    fullWidth
-                    inputProps={{ "data-testid": "endLocation" }}
-                    className="mt-3 mb-3"
-                    label="Destination"
-                    variant="outlined"
-                    onChange={(event) => setEndLocation(event?.target.value)}
+                <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={destinationSuggestiongs}
+                    sx={{ width: 300 }}
+                    onChange={(event, newValue) => {
+                        setEndLocation((newValue as string) || "");
+                    }}
+                    onInputChange={(event, newInputValue) => {
+                        fetchPlacesForDestination(newInputValue);
+                    }}
+                    filterOptions={filterOptions}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Destination"
+                            variant="outlined"
+                            className="mt-3 mb-3"
+                        />
+                    )}
                 />
 
                 <Typography variant="h6" className="mt-3 mb-1">
                     Navigation Mode
                 </Typography>
+
                 <ButtonGroup
                     className="mb-3"
                     variant="contained"
