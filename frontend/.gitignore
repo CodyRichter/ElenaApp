@@ -24,3 +24,4 @@ yarn-error.log*
 
 # Exclude coverage report from git
 src/test/coverage/*
+coverage
