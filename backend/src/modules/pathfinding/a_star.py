@@ -6,15 +6,14 @@ from typing import List, Tuple
 import networkx as nx
 import osmnx as ox
 from haversine import haversine
-
 from src.modules.pathfinding.osm_util import *
 
-try:
-    graph = ox.load_graphml("Amherst.graphml")
-except FileNotFoundError:
-    graph = ox.graph_from_place("Amherst, Massachusetts, USA")
-    add_elevation(graph)
-    ox.save_graphml(graph, "Amherst.graphml")
+#try:
+#    graph = ox.load_graphml("Amherst.graphml")
+#except FileNotFoundError:
+#    graph = ox.graph_from_place("Amherst, Massachusetts, USA")
+#    add_elevation(graph)
+#    ox.save_graphml(graph, "Amherst.graphml")
 
 
 class AStar:
@@ -246,7 +245,7 @@ class MaximizeStrategy(RoutingStrategy):
         return new_path
 
 
-def getStrategy(mode: str, max_dist: int) -> RoutingStrategy:
+def getStrategy(mode: str, max_dist: int, midpt) -> RoutingStrategy:
     """
     Get a routing strategy based on the mode and max distance.
 
@@ -255,6 +254,9 @@ def getStrategy(mode: str, max_dist: int) -> RoutingStrategy:
 
     :return: The routing strategy applied to the route
     """
+    graph, centerpoint = get_graph(midpt)
+    add_elevation(graph)
+    save_graph(graph, centerpoint)
     if mode == "direct":
         return DirectStrategy(graph, max_dist)
     elif mode == "maximize_elevation":

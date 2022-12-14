@@ -6,7 +6,6 @@ import networkx
 import osmnx as ox
 from haversine import haversine
 from requests import get
-
 from src.models.Constants import ELEVATION_URI
 
 logger = logging.getLogger(__name__)
