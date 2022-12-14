@@ -20,6 +20,7 @@ import { NavigationErrorBox } from "./SidebarComponents/NavigationErrorBox";
 
 import { parseLocation } from "parse-address";
 import qs from "qs";
+import { Network } from "util/network";
 
 interface SidebarProps {
     startLocation: string;
@@ -43,7 +44,6 @@ export default function Sidebar({
     navigationType,
     setNavigationType,
     navigationErrorHidden,
-    setNavigationErrorHidden,
     sliderValue,
     handleSliderChange,
     calculateRoute,
@@ -54,6 +54,7 @@ export default function Sidebar({
     >([]);
 
     const fetchPlaces = async (query: any) => {
+        setStartLocation(query);
         const {
             number = "",
             prefix = "",
@@ -64,26 +65,30 @@ export default function Sidebar({
             state = "",
             zip = "",
         } = parseLocation(query) || {};
-        const response = await fetch(
-            `https://nominatim.openstreetmap.org/?${qs.stringify({
-                street: [number, prefix, street, suffix, type].join(" "),
-                city: city,
-                state: state,
-                postalcode: zip,
-                building: "residential",
-                addressdetails: 1,
-                format: "geojson",
-            })}`
-        );
-        const data = await response.json();
-        let features: string[] = [];
-        data.features.forEach((feature: any) => {
-            features.push(feature.properties.display_name);
-        });
-        setoriginSuggestiongs(features);
+        try {
+            const response = await Network.fetchLocations(
+                number,
+                prefix,
+                street,
+                suffix,
+                type,
+                city,
+                state,
+                zip
+            );
+            const data = await response.json();
+            let features: string[] = [];
+            data.features.forEach((feature: any) => {
+                features.push(feature.properties.display_name);
+            });
+            setoriginSuggestiongs(features);
+        } catch (err) {
+            throw err;
+        }
     };
 
     const fetchPlacesForDestination = async (query: any) => {
+        setEndLocation(query);
         const {
             number = "",
             prefix = "",
@@ -94,23 +99,26 @@ export default function Sidebar({
             state = "",
             zip = "",
         } = parseLocation(query) || {};
-        const response = await fetch(
-            `https://nominatim.openstreetmap.org/?${qs.stringify({
-                street: [number, prefix, street, suffix, type].join(" "),
-                city: city,
-                state: state,
-                postalcode: zip,
-                building: "residential",
-                addressdetails: 1,
-                format: "geojson",
-            })}`
-        );
-        const data = await response.json();
-        let features: string[] = [];
-        data.features.forEach((feature: any) => {
-            features.push(feature.properties.display_name);
-        });
-        setdestinationSuggestiongs(features);
+        try {
+            const response = await Network.fetchLocations(
+                number,
+                prefix,
+                street,
+                suffix,
+                type,
+                city,
+                state,
+                zip
+            );
+            const data = await response.json();
+            let features: string[] = [];
+            data.features.forEach((feature: any) => {
+                features.push(feature.properties.display_name);
+            });
+            setdestinationSuggestiongs(features);
+        } catch (err) {
+            throw err;
+        }
     };
 
     const OPTIONS_LIMIT = 3;
@@ -119,10 +127,6 @@ export default function Sidebar({
     const filterOptions = (options: any, state: any) => {
         return defaultFilterOptions(options, state).slice(0, OPTIONS_LIMIT);
     };
-
-    useEffect(() => {
-        console.log(startLocation);
-    }, [startLocation, endLocation]);
 
     return (
         <Drawer
@@ -139,6 +143,7 @@ export default function Sidebar({
 
                 <Autocomplete
                     disablePortal
+                    freeSolo={true}
                     id="combo-box-demo"
                     options={originSuggestiongs}
                     sx={{ width: 300 }}
@@ -161,6 +166,7 @@ export default function Sidebar({
 
                 <Autocomplete
                     disablePortal
+                    freeSolo={true}
                     id="combo-box-demo"
                     options={destinationSuggestiongs}
                     sx={{ width: 300 }}
